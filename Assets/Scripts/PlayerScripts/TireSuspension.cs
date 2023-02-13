@@ -10,6 +10,12 @@ public class TireSuspension : MonoBehaviour
     public bool turnable;
     public bool drivable;
 
+    private float forwardSpeed = 7069f;
+    private float backwardSpeed = 2000f;
+
+    // Grip factor in range of 0-1
+    private float gripFactor = 1f;
+
     public LineRenderer line;
 
     public Rigidbody carRigidbody;
@@ -46,6 +52,7 @@ public class TireSuspension : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Need to set max rotation allowed
         if (turnable)
         {
             if (Input.GetKey(KeyCode.A))
@@ -69,8 +76,6 @@ public class TireSuspension : MonoBehaviour
 
             float steeringVel = Vector3.Dot(steeringDir, tireWorldVel);
 
-            // Grip factor in range of 0-1
-            float gripFactor = 0.8f;
             float desiredVelChange = -steeringVel * gripFactor;
 
             float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
@@ -86,9 +91,9 @@ public class TireSuspension : MonoBehaviour
 
                 float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
 
-                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / 100f);
+                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / 500f);
 
-                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * 8000f;
+                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
 
                 carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
             }
@@ -101,7 +106,7 @@ public class TireSuspension : MonoBehaviour
 
                 float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / 100f);
 
-                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * 2000f;
+                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * backwardSpeed;
 
                 carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
             }
