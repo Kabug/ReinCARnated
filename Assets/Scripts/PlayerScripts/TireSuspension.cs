@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TireSuspension : MonoBehaviour
 {
-    private float suspensionLength = 1f;
+    private float suspensionLength = 0.55f;
     private float springStrength = 600f;
     private float springDamper = 100f;
     public bool turnable;
@@ -14,7 +14,7 @@ public class TireSuspension : MonoBehaviour
     private float backwardSpeed = 2000f;
 
     // Grip factor in range of 0-1
-    private float gripFactor = 1f;
+    private float gripFactor = 0.8f;
 
     public LineRenderer line;
 
