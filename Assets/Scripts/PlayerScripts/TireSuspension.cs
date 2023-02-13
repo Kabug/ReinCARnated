@@ -10,6 +10,12 @@ public class TireSuspension : MonoBehaviour
     public bool turnable;
     public bool drivable;
 
+    private float forwardSpeed = 7069f;
+    private float backwardSpeed = 2000f;
+
+    // Grip factor in range of 0-1
+    private float gripFactor = 1f;
+
     public LineRenderer line;
 
     public Rigidbody carRigidbody;
@@ -46,6 +52,7 @@ public class TireSuspension : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Need to set max rotation allowed
         if (turnable)
         {
             if (Input.GetKey(KeyCode.A))
@@ -58,21 +65,22 @@ public class TireSuspension : MonoBehaviour
                 transform.Rotate(Vector3.up * 20 * Time.deltaTime);
             }
 
-            if (rayCastHit)
-            {
+        }
 
-                Vector3 steeringDir = transform.forward;
+        if (rayCastHit)
+        {
 
-                Vector3 tireWorldVel = carRigidbody.GetPointVelocity(transform.position);
+            Vector3 steeringDir = transform.right;
 
-                float steeringVel = Vector3.Dot(steeringDir, tireWorldVel);
+            Vector3 tireWorldVel = carRigidbody.GetPointVelocity(transform.position);
 
-                float desiredVelChange = -steeringVel * 0.8f;
+            float steeringVel = Vector3.Dot(steeringDir, tireWorldVel);
 
-                float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
+            float desiredVelChange = -steeringVel * gripFactor;
 
-                carRigidbody.AddForceAtPosition(steeringDir * 5f * desiredAccel, transform.position);
-            }
+            float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
+
+            carRigidbody.AddForceAtPosition(steeringDir * 5f * desiredAccel, transform.position);
         }
 
         if (rayCastHit && drivable)
@@ -83,9 +91,22 @@ public class TireSuspension : MonoBehaviour
 
                 float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
 
+                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / 500f);
+
+                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
+
+                carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
+            }
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                Vector3 accelDir = -transform.forward;
+
+                float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
+
                 float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / 100f);
 
-                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * 10000f;
+                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * backwardSpeed;
 
                 carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
             }
