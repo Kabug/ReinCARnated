@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 
@@ -30,6 +31,7 @@ public class TireSuspension : MonoBehaviour
     private bool rayCastHit;
 
     public AnimationCurve powerCurve;
+    private CustomInput input = null;
 
     public TrailRenderer trailRenderer;
     // Start is called before the first frame update
@@ -42,26 +44,47 @@ public class TireSuspension : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        input = new CustomInput();
+    }
+
+    private void OnEnable()
+    {
+        input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Disable();
+    }
+
     // Update is called once per frame
     void Update()
     {
+
+        bool isTurnLeft = input.Player.TurnLeft.ReadValue<float>() > 0.1f;
+        bool isTurnRight = input.Player.TurnRight.ReadValue<float>() > 0.1f;
+        bool isDrift = input.Player.Drift.ReadValue<float>() > 0.1f;
+
         if (turnable)
         {
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            if (isTurnLeft)
             {
-                if (Input.GetKey(KeyCode.A))
-                {
-                    transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
-                }
+                
+                transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
 
-                if (Input.GetKey(KeyCode.D))
-                {
-                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
-                }
             }
+                
+            if (isTurnRight)
+            {
+                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+            }
+
             transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.Space))
+        
+        if (isDrift)
         {
             gripFactor = Mathf.Lerp(driftGrip, defaultGrip, Time.deltaTime);
         }
@@ -85,6 +108,8 @@ public class TireSuspension : MonoBehaviour
 
     private void FixedUpdate()
     {
+        bool isAccel = input.Player.Accelerate.ReadValue<float>() > 0.1f;
+        bool isDeccel = input.Player.Decelerate.ReadValue<float>() > 0.1f;
         //line.SetPosition(0, transform.position);
         //line.SetPosition(1, transform.position);
         rayCastHit = false;
@@ -117,7 +142,7 @@ public class TireSuspension : MonoBehaviour
 
         if (rayCastHit && drivable)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (isAccel)
             {
                 Vector3 accelDir = transform.forward;
 
@@ -131,7 +156,7 @@ public class TireSuspension : MonoBehaviour
                 carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
             }
 
-            if (Input.GetKey(KeyCode.S))
+            if (isDeccel)
             {
                 Vector3 accelDir = -transform.forward;
 
