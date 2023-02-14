@@ -396,6 +396,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car
       objectReference: {fileID: 0}
+    - target: {fileID: 1292710355826413892, guid: 8d95280607d261248935e22b809bc816, type: 3}
+      propertyPath: m_Drag
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1292710355826413912, guid: 8d95280607d261248935e22b809bc816, type: 3}
       propertyPath: m_RootOrder
       value: 1
