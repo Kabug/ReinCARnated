@@ -52,7 +52,6 @@ public class TireSuspension : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Need to set max rotation allowed
         if (turnable)
         {
             if (Input.GetKey(KeyCode.A))
@@ -64,12 +63,10 @@ public class TireSuspension : MonoBehaviour
             {
                 transform.Rotate(Vector3.up * 20 * Time.deltaTime);
             }
-
         }
 
         if (rayCastHit)
         {
-
             Vector3 steeringDir = transform.right;
 
             Vector3 tireWorldVel = carRigidbody.GetPointVelocity(transform.position);
