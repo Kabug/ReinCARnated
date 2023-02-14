@@ -47,31 +47,20 @@ public class TireSuspension : MonoBehaviour
     {
         if (turnable)
         {
+            Debug.Log(transform.localRotation.eulerAngles.y);
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
                 if (Input.GetKey(KeyCode.A))
                 {
-                    //if (transform.rotation.eulerAngles.y > 20 || transform.rotation.eulerAngles.y > 340)
-                    //{
-                    if (transform.localRotation.eulerAngles.y < 20 || transform.localRotation.eulerAngles.y > 340)
-                    {
-                        transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
-                    }
-                    //}
+                    transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
                 }
 
                 if (Input.GetKey(KeyCode.D))
                 {
-                    if (transform.localRotation.eulerAngles.y < 20 || transform.rotation.eulerAngles.y > 340)
-                    {
-                        transform.Rotate(Vector3.up * 20 * Time.deltaTime);
-                    }
+                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
                 }
             }
-            else
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime);
-            }
+            transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.Space))
         {
