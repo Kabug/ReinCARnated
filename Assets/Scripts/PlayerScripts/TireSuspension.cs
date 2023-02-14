@@ -47,7 +47,6 @@ public class TireSuspension : MonoBehaviour
     {
         if (turnable)
         {
-            Debug.Log(transform.localRotation.eulerAngles.y);
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
                 if (Input.GetKey(KeyCode.A))
