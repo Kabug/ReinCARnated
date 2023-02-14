@@ -18,7 +18,9 @@ public class TireSuspension : MonoBehaviour
     private float topSpeed = 27f;
 
     // Grip factor in range of 0-1
-    private float gripFactor = 0.8f;
+    private float gripFactor;
+    private float defaultGrip = 0.8f;
+    private float driftGrip = 0.6f;
 
     public LineRenderer line;
 
@@ -28,11 +30,10 @@ public class TireSuspension : MonoBehaviour
     private bool rayCastHit;
 
     public AnimationCurve powerCurve;
-
     // Start is called before the first frame update
     void Start()
     {
-
+        gripFactor = defaultGrip;
     }
 
     // Update is called once per frame
@@ -40,16 +41,36 @@ public class TireSuspension : MonoBehaviour
     {
         if (turnable)
         {
-            if (Input.GetKey(KeyCode.A))
+            // Still need to cap max turn :|
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
-                transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
-            }
+                if (Input.GetKey(KeyCode.A))
+                {
+                    transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
+                }
 
-            if (Input.GetKey(KeyCode.D))
+                if (Input.GetKey(KeyCode.D))
+                {
+                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+                }
+            }
+            else
             {
-                transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime);
             }
         }
+        else 
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                gripFactor = driftGrip;
+            }
+            else
+            {
+                gripFactor = defaultGrip;
+            }
+        }
+
     }
 
     private void FixedUpdate()
