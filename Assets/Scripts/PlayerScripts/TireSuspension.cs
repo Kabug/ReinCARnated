@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// This script handles tire suspension, steering and acceleration
 public class TireSuspension : MonoBehaviour
 {
     private float suspensionLength = 0.8f;
