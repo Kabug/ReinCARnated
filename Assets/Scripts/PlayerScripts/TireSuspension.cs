@@ -20,7 +20,7 @@ public class TireSuspension : MonoBehaviour
     // Grip factor in range of 0-1
     private float gripFactor;
     private float defaultGrip = 0.8f;
-    private float driftGrip = 0.6f;
+    private float driftGrip = 0.1f;
 
     public LineRenderer line;
 
