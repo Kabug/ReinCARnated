@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// This script handles tire suspension, steering and acceleration
 public class TireSuspension : MonoBehaviour
 {
     private float suspensionLength = 0.8f;
@@ -49,18 +51,17 @@ public class TireSuspension : MonoBehaviour
 
     private void FixedUpdate()
     {
-        line.SetPosition(0, transform.position);
-        line.SetPosition(1, transform.position);
+        //line.SetPosition(0, transform.position);
+        //line.SetPosition(1, transform.position);
         rayCastHit = false;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, suspensionLength))
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * hitInfo.distance, Color.red);
+            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * hitInfo.distance, Color.red);
             float vel = Vector3.Dot(transform.up, carRigidbody.GetPointVelocity(transform.position));
             float offset = suspensionLength - hitInfo.distance;
             float compressionRatio = (offset * springStrength) - (vel * springDamper);
             carRigidbody.AddForceAtPosition(transform.up * compressionRatio, transform.position);
-
-            line.SetPosition(1, transform.position + transform.up * compressionRatio / 100);
+            //line.SetPosition(1, transform.position + transform.up * compressionRatio / 100);
 
             rayCastHit = true;
         }
