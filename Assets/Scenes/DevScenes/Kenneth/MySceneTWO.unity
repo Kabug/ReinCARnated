@@ -492,6 +492,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  trailRenderer: {fileID: 0}
 --- !u!1 &705586985
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +800,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  trailRenderer: {fileID: 0}
 --- !u!1 &898952312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,6 +1256,7 @@ GameObject:
   - component: {fileID: 1322180590}
   - component: {fileID: 1322180589}
   - component: {fileID: 1322180588}
+  - component: {fileID: 1322180594}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -1359,6 +1362,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1322180594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322180587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92cd7b9a4fe5be54cb1517c9d7a83567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveVector: {x: 0, y: 0, z: 0}
+  rb: {fileID: 0}
+  moveSpeed: 10
 --- !u!1 &1453871495
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,6 +1733,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  trailRenderer: {fileID: 0}
 --- !u!1 &1544657429
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,6 +2024,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  trailRenderer: {fileID: 0}
 --- !u!1 &1997421812
 GameObject:
   m_ObjectHideFlags: 0

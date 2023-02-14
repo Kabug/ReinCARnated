@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
+
+// This script handles tire suspension, steering and acceleration
 public class TireSuspension : MonoBehaviour
 {
     private float suspensionLength = 0.8f;
@@ -11,11 +14,14 @@ public class TireSuspension : MonoBehaviour
     public bool turnable;
     public bool drivable;
 
-    private float forwardSpeed = 6000f;
+    private float forwardSpeed = 3000f;
     private float backwardSpeed = 2000f;
+    private float topSpeed = 27f;
 
     // Grip factor in range of 0-1
-    private float gripFactor = 0.8f;
+    private float gripFactor;
+    private float defaultGrip = 0.8f;
+    private float driftGrip = 0.1f;
 
     public LineRenderer line;
 
@@ -26,10 +32,16 @@ public class TireSuspension : MonoBehaviour
 
     public AnimationCurve powerCurve;
     private CustomInput input = null;
+
+    public TrailRenderer trailRenderer;
     // Start is called before the first frame update
     void Start()
     {
-
+        gripFactor = defaultGrip;
+        if (trailRenderer)
+        {
+            trailRenderer.emitting = false;
+        }
     }
 
     private void Awake()
@@ -53,37 +65,62 @@ public class TireSuspension : MonoBehaviour
 
         bool isTurnLeft = input.Player.TurnLeft.ReadValue<float>() > 0.1f;
         bool isTurnRight = input.Player.TurnRight.ReadValue<float>() > 0.1f;
+        bool isDrift = input.Player.Drift.ReadValue<float>() > 0.1f;
 
         if (turnable)
         {
             if (isTurnLeft)
             {
+                
                 transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
-            }
 
+            }
+                
             if (isTurnRight)
             {
-                transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+            }
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime);
+        }
+        
+        if (isDrift)
+        {
+            gripFactor = Mathf.Lerp(driftGrip, defaultGrip, Time.deltaTime);
+        }
+        else
+        {
+            gripFactor = Mathf.Lerp(defaultGrip, driftGrip, Time.deltaTime);
+        }
+        if (trailRenderer)
+        {
+            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10))
+            {
+                trailRenderer.emitting = true;
+            }
+            else
+            {
+                trailRenderer.emitting = false;
             }
         }
+
     }
 
     private void FixedUpdate()
     {
         bool isAccel = input.Player.Accelerate.ReadValue<float>() > 0.1f;
         bool isDeccel = input.Player.Decelerate.ReadValue<float>() > 0.1f;
-        line.SetPosition(0, transform.position);
-        line.SetPosition(1, transform.position);
+        //line.SetPosition(0, transform.position);
+        //line.SetPosition(1, transform.position);
         rayCastHit = false;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, suspensionLength))
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * hitInfo.distance, Color.red);
+            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * hitInfo.distance, Color.red);
             float vel = Vector3.Dot(transform.up, carRigidbody.GetPointVelocity(transform.position));
             float offset = suspensionLength - hitInfo.distance;
             float compressionRatio = (offset * springStrength) - (vel * springDamper);
             carRigidbody.AddForceAtPosition(transform.up * compressionRatio, transform.position);
-
-            line.SetPosition(1, transform.position + transform.up * compressionRatio / 100);
+            //line.SetPosition(1, transform.position + transform.up * compressionRatio / 100);
 
             rayCastHit = true;
         }
@@ -111,7 +148,8 @@ public class TireSuspension : MonoBehaviour
 
                 float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
 
-                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / 500f);
+                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
+
 
                 float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
 
@@ -124,7 +162,7 @@ public class TireSuspension : MonoBehaviour
 
                 float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
 
-                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / 100f);
+                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
 
                 float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * backwardSpeed;
 

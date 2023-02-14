@@ -62,6 +62,15 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drift"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""6ba38127-3596-421f-bf6e-6195529ad6a2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -69,6 +78,17 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""b7a2559d-eb94-481b-8349-bc46489f283e"",
                     ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""245a7df5-d6d7-4026-9a97-ac4657a64d0c"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -89,8 +109,30 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""801acf85-d1a1-4dba-a000-5137b3a8ec1d"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Decelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2538addf-bf2d-4bad-8ca7-3e82ab69a366"",
                     ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TurnLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""86ac3a1c-733e-4f3b-a578-0aa222d2e48f"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -108,6 +150,39 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""action"": ""TurnRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bbea6026-165e-452c-a9af-87706150e84e"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TurnRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b8bb77ca-1974-43e6-8216-848c8bfbdab4"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71bdcc71-a7b0-4202-ac35-642d02f9a0a7"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -120,6 +195,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         m_Player_Decelerate = m_Player.FindAction("Decelerate", throwIfNotFound: true);
         m_Player_TurnLeft = m_Player.FindAction("TurnLeft", throwIfNotFound: true);
         m_Player_TurnRight = m_Player.FindAction("TurnRight", throwIfNotFound: true);
+        m_Player_Drift = m_Player.FindAction("Drift", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,6 +259,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Decelerate;
     private readonly InputAction m_Player_TurnLeft;
     private readonly InputAction m_Player_TurnRight;
+    private readonly InputAction m_Player_Drift;
     public struct PlayerActions
     {
         private @CustomInput m_Wrapper;
@@ -191,6 +268,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         public InputAction @Decelerate => m_Wrapper.m_Player_Decelerate;
         public InputAction @TurnLeft => m_Wrapper.m_Player_TurnLeft;
         public InputAction @TurnRight => m_Wrapper.m_Player_TurnRight;
+        public InputAction @Drift => m_Wrapper.m_Player_Drift;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -212,6 +290,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @TurnRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTurnRight;
                 @TurnRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTurnRight;
                 @TurnRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTurnRight;
+                @Drift.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrift;
+                @Drift.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrift;
+                @Drift.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrift;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -228,6 +309,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @TurnRight.started += instance.OnTurnRight;
                 @TurnRight.performed += instance.OnTurnRight;
                 @TurnRight.canceled += instance.OnTurnRight;
+                @Drift.started += instance.OnDrift;
+                @Drift.performed += instance.OnDrift;
+                @Drift.canceled += instance.OnDrift;
             }
         }
     }
@@ -238,5 +322,6 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         void OnDecelerate(InputAction.CallbackContext context);
         void OnTurnLeft(InputAction.CallbackContext context);
         void OnTurnRight(InputAction.CallbackContext context);
+        void OnDrift(InputAction.CallbackContext context);
     }
 }

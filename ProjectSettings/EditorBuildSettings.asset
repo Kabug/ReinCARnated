@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/DevScenes/Kab/MySceneTWO.unity
-    guid: 0a49cf4d0f4c0694f8d68081a4a3e704
+    path: Assets/Scenes/DevScenes/Kab/Richmond.unity
+    guid: e22d01c1965d53f458934e8a6c8bcbf7
   m_configObjects: {}
