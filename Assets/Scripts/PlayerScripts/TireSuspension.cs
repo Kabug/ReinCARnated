@@ -73,6 +73,10 @@ public class TireSuspension : MonoBehaviour
 
                 carRigidbody.AddForceAtPosition(steeringDir * 5f * desiredAccel, transform.position);
             }
+            
+            else{
+                
+            }
         }
 
         if (rayCastHit && drivable)
@@ -90,5 +94,6 @@ public class TireSuspension : MonoBehaviour
                 carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
             }
         }
+
     }
 }
