@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TireSuspension : MonoBehaviour
 {
-    private float suspensionLength = 0.55f;
+    private float suspensionLength = 0.8f;
     private float springStrength = 600f;
     private float springDamper = 100f;
     public bool turnable;
     public bool drivable;
 
-    private float forwardSpeed = 5000f;
+    private float forwardSpeed = 6000f;
     private float backwardSpeed = 2000f;
 
     // Grip factor in range of 0-1
