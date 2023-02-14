@@ -30,10 +30,16 @@ public class TireSuspension : MonoBehaviour
     private bool rayCastHit;
 
     public AnimationCurve powerCurve;
+
+    public TrailRenderer trailRenderer;
     // Start is called before the first frame update
     void Start()
     {
         gripFactor = defaultGrip;
+        if (trailRenderer)
+        {
+            trailRenderer.emitting = false;
+        }
     }
 
     // Update is called once per frame
@@ -41,37 +47,38 @@ public class TireSuspension : MonoBehaviour
     {
         if (turnable)
         {
-            // Still need to cap max turn :|
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
                 if (Input.GetKey(KeyCode.A))
                 {
-                    if (transform.rotation.eulerAngles.y > 20 || transform.rotation.eulerAngles.y < 340)
-                    {
-                        transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
-                    }
+                    transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
                 }
 
                 if (Input.GetKey(KeyCode.D))
                 {
-                    if (transform.rotation.eulerAngles.y > 20 || transform.rotation.eulerAngles.y < 340)
-                    {
-                        transform.Rotate(Vector3.up * 20 * Time.deltaTime);
-                    }
+                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
                 }
             }
-            else
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime);
-            }
+            transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.Space))
         {
-            gripFactor = driftGrip;
+            gripFactor = Mathf.Lerp(driftGrip, defaultGrip, Time.deltaTime);
         }
         else
         {
-            gripFactor = defaultGrip;
+            gripFactor = Mathf.Lerp(defaultGrip, driftGrip, Time.deltaTime);
+        }
+        if (trailRenderer)
+        {
+            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10))
+            {
+                trailRenderer.emitting = true;
+            }
+            else
+            {
+                trailRenderer.emitting = false;
+            }
         }
 
     }
