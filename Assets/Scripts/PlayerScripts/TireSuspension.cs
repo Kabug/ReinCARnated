@@ -10,7 +10,7 @@ public class TireSuspension : MonoBehaviour
     public bool turnable;
     public bool drivable;
 
-    private float forwardSpeed = 7069f;
+    private float forwardSpeed = 5000f;
     private float backwardSpeed = 2000f;
 
     // Grip factor in range of 0-1
@@ -33,6 +33,22 @@ public class TireSuspension : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (turnable)
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
+            }
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
         line.SetPosition(0, transform.position);
         line.SetPosition(1, transform.position);
         rayCastHit = false;
@@ -47,22 +63,6 @@ public class TireSuspension : MonoBehaviour
             line.SetPosition(1, transform.position + transform.up * compressionRatio / 100);
 
             rayCastHit = true;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (turnable)
-        {
-            if (Input.GetKey(KeyCode.A))
-            {
-                transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                transform.Rotate(Vector3.up * 20 * Time.deltaTime);
-            }
         }
 
         if (rayCastHit)
