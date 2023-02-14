@@ -46,12 +46,18 @@ public class TireSuspension : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.A))
                 {
-                    transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
+                    if (transform.rotation.eulerAngles.y > 20 || transform.rotation.eulerAngles.y < 340)
+                    {
+                        transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
+                    }
                 }
 
                 if (Input.GetKey(KeyCode.D))
                 {
-                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+                    if (transform.rotation.eulerAngles.y > 20 || transform.rotation.eulerAngles.y < 340)
+                    {
+                        transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+                    }
                 }
             }
             else
@@ -59,16 +65,13 @@ public class TireSuspension : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime);
             }
         }
-        else 
+        if (Input.GetKey(KeyCode.Space))
         {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                gripFactor = driftGrip;
-            }
-            else
-            {
-                gripFactor = defaultGrip;
-            }
+            gripFactor = driftGrip;
+        }
+        else
+        {
+            gripFactor = defaultGrip;
         }
 
     }
