@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 
 // This script handles tire suspension, steering and acceleration
@@ -14,6 +15,7 @@ public class TireSuspension : MonoBehaviour
 
     private float forwardSpeed = 5000f;
     private float backwardSpeed = 2000f;
+    private float topSpeed = 27f;
 
     // Grip factor in range of 0-1
     private float gripFactor = 0.8f;
@@ -26,6 +28,7 @@ public class TireSuspension : MonoBehaviour
     private bool rayCastHit;
 
     public AnimationCurve powerCurve;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -89,7 +92,8 @@ public class TireSuspension : MonoBehaviour
 
                 float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
 
-                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / 500f);
+                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
+
 
                 float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
 
