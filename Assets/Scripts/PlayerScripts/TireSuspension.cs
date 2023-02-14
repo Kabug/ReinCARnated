@@ -13,7 +13,7 @@ public class TireSuspension : MonoBehaviour
     public bool turnable;
     public bool drivable;
 
-    private float forwardSpeed = 5000f;
+    private float forwardSpeed = 3000f;
     private float backwardSpeed = 2000f;
     private float topSpeed = 27f;
 
@@ -106,7 +106,7 @@ public class TireSuspension : MonoBehaviour
 
                 float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
 
-                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / 100f);
+                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
 
                 float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * backwardSpeed;
 
