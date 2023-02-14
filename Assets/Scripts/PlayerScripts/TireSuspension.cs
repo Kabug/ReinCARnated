@@ -12,7 +12,7 @@ public class TireSuspension : MonoBehaviour
     public bool turnable;
     public bool drivable;
 
-    private float forwardSpeed = 6000f;
+    private float forwardSpeed = 5000f;
     private float backwardSpeed = 2000f;
 
     // Grip factor in range of 0-1
