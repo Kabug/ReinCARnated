@@ -253,7 +253,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.001
   m_Autodestruct: 0
-  m_Emitting: 1
+  m_Emitting: 0
 --- !u!1 &546437473
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +456,10 @@ PrefabInstance:
       propertyPath: turnable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1292710356264268326, guid: 8d95280607d261248935e22b809bc816, type: 3}
+      propertyPath: trailRenderer
+      value: 
+      objectReference: {fileID: 135346223}
     - target: {fileID: 1292710356334120908, guid: 8d95280607d261248935e22b809bc816, type: 3}
       propertyPath: line
       value: 
@@ -468,6 +472,10 @@ PrefabInstance:
       propertyPath: turnable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1292710356334120908, guid: 8d95280607d261248935e22b809bc816, type: 3}
+      propertyPath: trailRenderer
+      value: 
+      objectReference: {fileID: 1837787720}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d95280607d261248935e22b809bc816, type: 3}
 --- !u!1001 &751563607
@@ -736,7 +744,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.001
   m_Autodestruct: 0
-  m_Emitting: 1
+  m_Emitting: 0
 --- !u!120 &1839114615 stripped
 LineRenderer:
   m_CorrespondingSourceObject: {fileID: 8456280327989858386, guid: a1e632cec7a1164468fb04238109e366, type: 3}
