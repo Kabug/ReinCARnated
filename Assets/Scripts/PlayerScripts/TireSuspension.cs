@@ -1,16 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
+
+// This script handles tire suspension, steering and acceleration
 public class TireSuspension : MonoBehaviour
 {
-    private float suspensionLength = 1f;
+    private float suspensionLength = 0.8f;
     private float springStrength = 600f;
     private float springDamper = 100f;
     public bool turnable;
     public bool drivable;
 
-    public LineRenderer line;
+    private float forwardSpeedMaxPower = 3000f;
+    private float forwardSpeed = 0f;
+    private float backwardSpeedMaxPower = 2000f;
+    private float backwardSpeed = 0f;
+    private float forwardTotal = 0;
+    private float backwardTotal = 0;
+    private float topSpeed = 27f;
+
+    // Grip factor in range of 0-1
+    private float gripFactor;
+    private float defaultGrip = 0.8f;
+    private float driftGrip = 0.1f;
 
     public Rigidbody carRigidbody;
     public Transform carTransform;
@@ -18,74 +33,169 @@ public class TireSuspension : MonoBehaviour
     private bool rayCastHit;
 
     public AnimationCurve powerCurve;
+    private CustomInput input = null;
+
+    public TrailRenderer trailRenderer;
+
+    //Control States
+    private bool isTurnLeft;
+    private bool isTurnRight;
+    private bool isDrift;
+    private bool isAccel;
+    private bool isDeccel;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        gripFactor = defaultGrip;
+        if (trailRenderer)
+        {
+            trailRenderer.emitting = false;
+        }
+    }
 
+    private void Awake()
+    {
+        input = new CustomInput();
+    }
+
+    private void OnEnable()
+    {
+        input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Disable();
     }
 
     // Update is called once per frame
     void Update()
     {
-        line.SetPosition(0, transform.position);
-        line.SetPosition(1, transform.position);
-        rayCastHit = false;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, suspensionLength))
+        isTurnLeft = input.Player.TurnLeft.ReadValue<float>() > 0.1f;
+        isTurnRight = input.Player.TurnRight.ReadValue<float>() > 0.1f;
+        isDrift = input.Player.Drift.ReadValue<float>() > 0.1f;
+        isAccel = input.Player.Accelerate.ReadValue<float>() > 0.1f;
+        isDeccel = input.Player.Decelerate.ReadValue<float>() > 0.1f;
+
+        if (turnable)
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * hitInfo.distance, Color.red);
-            float vel = Vector3.Dot(transform.up, carRigidbody.GetPointVelocity(transform.position));
-            float offset = suspensionLength - hitInfo.distance;
-            float compressionRatio = (offset * springStrength) - (vel * springDamper);
-            carRigidbody.AddForceAtPosition(transform.up * compressionRatio, transform.position);
+            if (isTurnLeft)
+            {
+                
+                transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
 
-            line.SetPosition(1, transform.position + transform.up * compressionRatio / 100);
+            }
+                
+            if (isTurnRight)
+            {
+                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+            }
 
-            rayCastHit = true;
+            transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime * 2.5f);
+        }
+        
+        if (isDrift)
+        {
+            gripFactor = Mathf.Lerp(driftGrip, defaultGrip, Time.deltaTime);
+        }
+        else
+        {
+            gripFactor = Mathf.Lerp(defaultGrip, driftGrip, Time.deltaTime);
+        }
+        if (trailRenderer)
+        {
+            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10))
+            {
+                trailRenderer.emitting = true;
+            }
+            else
+            {
+                trailRenderer.emitting = false;
+            }
+        }
+
+        if (drivable)
+        {
+            if (isAccel)
+            {
+                forwardSpeed = Mathf.Lerp(0, forwardSpeedMaxPower, forwardTotal);
+                forwardTotal += 0.5f * Time.deltaTime;
+            }
+            else
+            {
+                forwardSpeed = Mathf.Lerp(forwardSpeedMaxPower, 0, forwardTotal);
+                forwardTotal = Time.deltaTime;
+            }
+
+            if (isDeccel)
+            {
+                backwardSpeed = Mathf.Lerp(0, backwardSpeedMaxPower, backwardTotal);
+                backwardTotal += 0.5f * Time.deltaTime;
+            }
+            else
+            {
+                backwardSpeed = Mathf.Lerp(backwardSpeedMaxPower, 0, backwardTotal);
+                backwardTotal = Time.deltaTime;
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        if (turnable)
+        rayCastHit = false;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, suspensionLength))
         {
-            if (Input.GetKey(KeyCode.A))
-            {
-                transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
-            }
+            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * hitInfo.distance, Color.red);
+            float vel = Vector3.Dot(transform.up, carRigidbody.GetPointVelocity(transform.position));
+            float offset = suspensionLength - hitInfo.distance;
+            float compressionRatio = (offset * springStrength) - (vel * springDamper);
+            carRigidbody.AddForceAtPosition(transform.up * compressionRatio, transform.position);
 
-            if (Input.GetKey(KeyCode.D))
-            {
-                transform.Rotate(Vector3.up * 20 * Time.deltaTime);
-            }
+            rayCastHit = true;
+        }
 
-            if (rayCastHit)
-            {
+        if (rayCastHit)
+        {
+            Vector3 steeringDir = transform.right;
 
-                Vector3 steeringDir = transform.forward;
+            Vector3 tireWorldVel = carRigidbody.GetPointVelocity(transform.position);
 
-                Vector3 tireWorldVel = carRigidbody.GetPointVelocity(transform.position);
+            float steeringVel = Vector3.Dot(steeringDir, tireWorldVel);
 
-                float steeringVel = Vector3.Dot(steeringDir, tireWorldVel);
+            float desiredVelChange = -steeringVel * gripFactor;
 
-                float desiredVelChange = -steeringVel * 0.8f;
+            float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-                float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
-
-                carRigidbody.AddForceAtPosition(steeringDir * 5f * desiredAccel, transform.position);
-            }
+            carRigidbody.AddForceAtPosition(steeringDir * 5f * desiredAccel, transform.position);
         }
 
         if (rayCastHit && drivable)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (isAccel)
             {
                 Vector3 accelDir = transform.forward;
 
                 float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
 
-                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / 100f);
+                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
 
-                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * 5000f;
+
+                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
+
+                carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
+            }
+
+            if (isDeccel)
+            {
+                Vector3 accelDir = -transform.forward;
+
+                float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
+
+                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
+
+                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * backwardSpeed;
 
                 carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
             }
