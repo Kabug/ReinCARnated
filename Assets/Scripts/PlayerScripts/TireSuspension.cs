@@ -85,7 +85,7 @@ public class TireSuspension : MonoBehaviour
 
                 float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / 100f);
 
-                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * 10000f;
+                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * 5000f;
 
                 carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
             }
