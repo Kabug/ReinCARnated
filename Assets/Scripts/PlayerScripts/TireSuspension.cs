@@ -27,8 +27,6 @@ public class TireSuspension : MonoBehaviour
     private float defaultGrip = 0.8f;
     private float driftGrip = 0.1f;
 
-    public LineRenderer line;
-
     public Rigidbody carRigidbody;
     public Transform carTransform;
 
@@ -95,7 +93,7 @@ public class TireSuspension : MonoBehaviour
                     transform.Rotate(Vector3.up * 20 * Time.deltaTime);
             }
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime * 2.5f);
         }
         
         if (isDrift)
@@ -146,9 +144,6 @@ public class TireSuspension : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        //line.SetPosition(0, transform.position);
-        //line.SetPosition(1, transform.position);
         rayCastHit = false;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, suspensionLength))
         {
@@ -157,7 +152,6 @@ public class TireSuspension : MonoBehaviour
             float offset = suspensionLength - hitInfo.distance;
             float compressionRatio = (offset * springStrength) - (vel * springDamper);
             carRigidbody.AddForceAtPosition(transform.up * compressionRatio, transform.position);
-            //line.SetPosition(1, transform.position + transform.up * compressionRatio / 100);
 
             rayCastHit = true;
         }
