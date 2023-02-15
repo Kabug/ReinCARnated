@@ -36,6 +36,7 @@ public class TireSuspension : MonoBehaviour
     private CustomInput input = null;
 
     public TrailRenderer trailRenderer;
+    public ParticleSystem smokeParticles;
 
     //Control States
     private bool isTurnLeft;
@@ -53,6 +54,12 @@ public class TireSuspension : MonoBehaviour
         {
             trailRenderer.emitting = false;
         }
+
+        if (smokeParticles)
+        {
+            var emission = smokeParticles.emission;
+            emission.rateOverTime = 0;
+        } 
     }
 
     private void Awake()
@@ -115,6 +122,20 @@ public class TireSuspension : MonoBehaviour
                 trailRenderer.emitting = false;
             }
         }
+        if (smokeParticles)
+        {
+            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10))
+            {
+                var emission = smokeParticles.emission;
+                emission.rateOverTime = 40;
+            }
+            else
+            {
+                var emission = smokeParticles.emission;
+                emission.rateOverTime = 0;
+            }
+        }
+
 
         if (drivable)
         {
