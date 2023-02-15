@@ -14,8 +14,12 @@ public class TireSuspension : MonoBehaviour
     public bool turnable;
     public bool drivable;
 
-    private float forwardSpeed = 3000f;
-    private float backwardSpeed = 2000f;
+    private float forwardSpeedMaxPower = 3000f;
+    private float forwardSpeed = 0f;
+    private float backwardSpeedMaxPower = 2000f;
+    private float backwardSpeed = 0f;
+    private float forwardTotal = 0;
+    private float backwardTotal = 0;
     private float topSpeed = 27f;
 
     // Grip factor in range of 0-1
@@ -34,6 +38,15 @@ public class TireSuspension : MonoBehaviour
     private CustomInput input = null;
 
     public TrailRenderer trailRenderer;
+
+    //Control States
+    private bool isTurnLeft;
+    private bool isTurnRight;
+    private bool isDrift;
+    private bool isAccel;
+    private bool isDeccel;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,10 +75,11 @@ public class TireSuspension : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        bool isTurnLeft = input.Player.TurnLeft.ReadValue<float>() > 0.1f;
-        bool isTurnRight = input.Player.TurnRight.ReadValue<float>() > 0.1f;
-        bool isDrift = input.Player.Drift.ReadValue<float>() > 0.1f;
+        isTurnLeft = input.Player.TurnLeft.ReadValue<float>() > 0.1f;
+        isTurnRight = input.Player.TurnRight.ReadValue<float>() > 0.1f;
+        isDrift = input.Player.Drift.ReadValue<float>() > 0.1f;
+        isAccel = input.Player.Accelerate.ReadValue<float>() > 0.1f;
+        isDeccel = input.Player.Decelerate.ReadValue<float>() > 0.1f;
 
         if (turnable)
         {
@@ -104,12 +118,35 @@ public class TireSuspension : MonoBehaviour
             }
         }
 
+        if (drivable)
+        {
+            if (isAccel)
+            {
+                forwardSpeed = Mathf.Lerp(0, forwardSpeedMaxPower, forwardTotal);
+                forwardTotal += 0.5f * Time.deltaTime;
+            }
+            else
+            {
+                forwardSpeed = Mathf.Lerp(forwardSpeedMaxPower, 0, forwardTotal);
+                forwardTotal = Time.deltaTime;
+            }
+
+            if (isDeccel)
+            {
+                backwardSpeed = Mathf.Lerp(0, backwardSpeedMaxPower, backwardTotal);
+                backwardTotal += 0.5f * Time.deltaTime;
+            }
+            else
+            {
+                backwardSpeed = Mathf.Lerp(backwardSpeedMaxPower, 0, backwardTotal);
+                backwardTotal = Time.deltaTime;
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        bool isAccel = input.Player.Accelerate.ReadValue<float>() > 0.1f;
-        bool isDeccel = input.Player.Decelerate.ReadValue<float>() > 0.1f;
+
         //line.SetPosition(0, transform.position);
         //line.SetPosition(1, transform.position);
         rayCastHit = false;
