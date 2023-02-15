@@ -122,7 +122,7 @@ public class TireSuspension : MonoBehaviour
                 trailRenderer.emitting = false;
             }
         }
-        if (smokeParticles)
+        if (smokeParticles && 0.8 < Mathf.Clamp01(Mathf.Abs(Vector3.Dot(carTransform.forward, carRigidbody.velocity)) / topSpeed))
         {
             if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10))
             {
