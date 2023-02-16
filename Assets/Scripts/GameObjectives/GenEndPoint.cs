@@ -23,7 +23,7 @@ public class GenEndPoint : MonoBehaviour
         //GameObject randomSpawnArea = openAreaObjects[randomInt];
         //Renderer randomSpawnArea = randomSpawnArea.GetComponent<Renderer>();
         //Bounds randomSpawnAreaBounds = randomSpawnArea.bounds;
-        //Vector3 spawnPosition = randomSpawnArea.transform.localPosition;
+        //Vector3 spawnPosition = randomSpawnArea.transform.position;
 
         Dictionary<int, List<int>> staticXPaths = new Dictionary<int, List<int>>();
         staticXPaths.Add(450, new List<int> {-1250, 1500});
@@ -49,7 +49,7 @@ public class GenEndPoint : MonoBehaviour
             zPos = randomPair.Key;
         }
 
-        arrowPosition = new Vector3(xPos, 175, zPos);
+        arrowPosition = new Vector3(xPos, 150, zPos);
         GameObject arrowObject = Instantiate(arrow, arrowPosition, Quaternion.identity);
         stickManPosition = new Vector3(xPos, 10, zPos);
         GameObject stickManObject = Instantiate(stickman, stickManPosition, Quaternion.identity);
