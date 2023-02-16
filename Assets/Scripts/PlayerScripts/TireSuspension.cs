@@ -8,7 +8,7 @@ using UnityEngine.Rendering.Universal;
 // This script handles tire suspension, steering and acceleration
 public class TireSuspension : MonoBehaviour
 {
-    private float suspensionLength = 0.8f;
+    private float suspensionLength = 1f;
     private float springStrength = 600f;
     private float springDamper = 100f;
     public bool turnable;
