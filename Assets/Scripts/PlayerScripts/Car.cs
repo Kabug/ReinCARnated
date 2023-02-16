@@ -13,6 +13,8 @@ public class Car : MonoBehaviour
     public Rigidbody rigidBody;
 
     private float topSpeed = 27f;
+
+    private float HP = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,5 +28,13 @@ public class Car : MonoBehaviour
         float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
         abberation = Mathf.Clamp01(Mathf.Lerp(normalizedSpeed, 2, Time.deltaTime));
         chromaticAbberation.intensity.Override(abberation);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            Debug.DrawRay(contact.point, contact.normal, Color.white);
+        }
     }
 }
