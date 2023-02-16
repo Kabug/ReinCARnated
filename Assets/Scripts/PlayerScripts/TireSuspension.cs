@@ -111,6 +111,7 @@ public class TireSuspension : MonoBehaviour
         {
             gripFactor = Mathf.Lerp(defaultGrip, driftGrip, Time.deltaTime);
         }
+
         if (trailRenderer)
         {
             if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10))
@@ -122,9 +123,9 @@ public class TireSuspension : MonoBehaviour
                 trailRenderer.emitting = false;
             }
         }
-        if (smokeParticles && 0.8 < Mathf.Clamp01(Mathf.Abs(Vector3.Dot(carTransform.forward, carRigidbody.velocity)) / topSpeed))
+        if (smokeParticles)
         {
-            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10))
+            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10) && 0.4f < Mathf.Clamp01(Mathf.Abs(Vector3.Dot(carTransform.forward, carRigidbody.velocity)) / topSpeed) && isDrift)
             {
                 var emission = smokeParticles.emission;
                 emission.rateOverTime = 40;
