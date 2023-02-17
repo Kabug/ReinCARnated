@@ -34548,7 +34548,15 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 100
   dmgPerHit: 10
+  healingPF: 0.25
+  damagePF: 0.125
   popupUI: {fileID: 0}
+  isDrift: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isAccel: 0
+  isDeccel: 0
+  GAMESTATE: 0
 --- !u!1 &1435136243
 GameObject:
   m_ObjectHideFlags: 0
@@ -48523,9 +48531,65 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976215, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976218, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976218, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: gradient.key0.b
+      value: 0.75686276
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976218, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: gradient.key0.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976218, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: gradient.key0.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976218, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: gradient.key1.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976218, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: gradient.key1.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976218, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: gradient.key1.r
+      value: 0.5882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976218, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: gradient.key2.b
+      value: 0.9764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976218, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: gradient.key2.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976218, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: gradient.key2.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994348976218, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: gradient.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7218113994831405857, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994831405857, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218113994831405860, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7218113994831405861, guid: e91ce9f1c53ffcf47a02753f73956aba, type: 3}
       propertyPath: m_Pivot.x
