@@ -20,7 +20,7 @@ public class TireSuspension : MonoBehaviour
     private float backwardSpeed = 0f;
     private float forwardTotal = 0;
     private float backwardTotal = 0;
-    private float topSpeed = 27f;
+    private float topSpeed = 37f;
 
     // Grip factor in range of 0-1
     private float gripFactor;

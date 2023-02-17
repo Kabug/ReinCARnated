@@ -8,8 +8,6 @@ public class GenEndPoint : MonoBehaviour
 {
     public GameObject stickman;
 
-    public GameObject arrow;
-
     public GameObject car;
 
     private Vector3 arrowPosition;
@@ -49,12 +47,11 @@ public class GenEndPoint : MonoBehaviour
             zPos = randomPair.Key;
         }
 
-        arrowPosition = new Vector3(xPos, 150, zPos);
-        GameObject arrowObject = Instantiate(arrow, arrowPosition, Quaternion.identity);
         stickManPosition = new Vector3(xPos, 10, zPos);
-        GameObject stickManObject = Instantiate(stickman, stickManPosition, Quaternion.identity);
+        stickman.transform.position = stickManPosition;
+        stickman.SetActive(true);
 
-        Debug.Log(string.Format("Target is at: {0}", stickManPosition));
+        //Debug.Log(string.Format("Target is at: {0}", stickManPosition));
     }
 
     private void Update()
