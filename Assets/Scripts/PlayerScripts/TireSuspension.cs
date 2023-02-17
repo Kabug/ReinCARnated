@@ -33,18 +33,9 @@ public class TireSuspension : MonoBehaviour
     private bool rayCastHit;
 
     public AnimationCurve powerCurve;
-    private CustomInput input = null;
 
     public TrailRenderer trailRenderer;
     public ParticleSystem smokeParticles;
-
-    //Control States
-    private bool isTurnLeft;
-    private bool isTurnRight;
-    private bool isDrift;
-    private bool isAccel;
-    private bool isDeccel;
-
 
     // Start is called before the first frame update
     void Start()
@@ -62,54 +53,61 @@ public class TireSuspension : MonoBehaviour
         } 
     }
 
-    private void Awake()
-    {
-        input = new CustomInput();
-    }
-
-    public void enableControl()
-    {
-        input.Enable();
-    }
-
-    public void disableControl()
-    {
-        input.Disable();
-    }
-
     // Update is called once per frame
     void Update()
     {
-        isTurnLeft = input.Player.TurnLeft.ReadValue<float>() > 0.1f;
-        isTurnRight = input.Player.TurnRight.ReadValue<float>() > 0.1f;
-        isDrift = input.Player.Drift.ReadValue<float>() > 0.1f;
-        isAccel = input.Player.Accelerate.ReadValue<float>() > 0.1f;
-        isDeccel = input.Player.Decelerate.ReadValue<float>() > 0.1f;
-
-        if (turnable)
+        if (GameTracker.Instance.GAMESTATE == GameTracker.GameStates.Playing)
         {
-            if (isTurnLeft)
+            if (turnable)
             {
-                
-                transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
+                if (GameTracker.Instance.isTurnLeft)
+                {
 
+                    transform.Rotate(-Vector3.up * 25 * Time.deltaTime);
+
+                }
+
+                if (GameTracker.Instance.isTurnRight)
+                {
+                    transform.Rotate(Vector3.up * 25 * Time.deltaTime);
+                }
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime * 2.5f);
             }
-                
-            if (isTurnRight)
+
+            if (GameTracker.Instance.isDrift)
             {
-                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+                gripFactor = Mathf.Lerp(driftGrip, defaultGrip, Time.deltaTime);
+            }
+            else
+            {
+                gripFactor = Mathf.Lerp(defaultGrip, driftGrip, Time.deltaTime);
             }
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime * 2.5f);
-        }
-        
-        if (isDrift)
-        {
-            gripFactor = Mathf.Lerp(driftGrip, defaultGrip, Time.deltaTime);
-        }
-        else
-        {
-            gripFactor = Mathf.Lerp(defaultGrip, driftGrip, Time.deltaTime);
+            if (drivable)
+            {
+                if (GameTracker.Instance.isAccel)
+                {
+                    forwardSpeed = Mathf.Lerp(0, forwardSpeedMaxPower, forwardTotal);
+                    forwardTotal += 0.5f * Time.deltaTime;
+                }
+                else
+                {
+                    forwardSpeed = Mathf.Lerp(forwardSpeedMaxPower, 0, forwardTotal);
+                    forwardTotal = Time.deltaTime;
+                }
+
+                if (GameTracker.Instance.isDeccel)
+                {
+                    backwardSpeed = Mathf.Lerp(0, backwardSpeedMaxPower, backwardTotal);
+                    backwardTotal += 0.5f * Time.deltaTime;
+                }
+                else
+                {
+                    backwardSpeed = Mathf.Lerp(backwardSpeedMaxPower, 0, backwardTotal);
+                    backwardTotal = Time.deltaTime;
+                }
+            }
         }
 
         if (trailRenderer)
@@ -125,7 +123,7 @@ public class TireSuspension : MonoBehaviour
         }
         if (smokeParticles)
         {
-            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10) && 0.4f < Mathf.Clamp01(Mathf.Abs(Vector3.Dot(carTransform.forward, carRigidbody.velocity)) / topSpeed) && isDrift)
+            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10) && 0.4f < Mathf.Clamp01(Mathf.Abs(Vector3.Dot(carTransform.forward, carRigidbody.velocity)) / topSpeed) && GameTracker.Instance.isDrift)
             {
                 var emission = smokeParticles.emission;
                 emission.rateOverTime = 40;
@@ -137,31 +135,6 @@ public class TireSuspension : MonoBehaviour
             }
         }
 
-
-        if (drivable)
-        {
-            if (isAccel)
-            {
-                forwardSpeed = Mathf.Lerp(0, forwardSpeedMaxPower, forwardTotal);
-                forwardTotal += 0.5f * Time.deltaTime;
-            }
-            else
-            {
-                forwardSpeed = Mathf.Lerp(forwardSpeedMaxPower, 0, forwardTotal);
-                forwardTotal = Time.deltaTime;
-            }
-
-            if (isDeccel)
-            {
-                backwardSpeed = Mathf.Lerp(0, backwardSpeedMaxPower, backwardTotal);
-                backwardTotal += 0.5f * Time.deltaTime;
-            }
-            else
-            {
-                backwardSpeed = Mathf.Lerp(backwardSpeedMaxPower, 0, backwardTotal);
-                backwardTotal = Time.deltaTime;
-            }
-        }
     }
 
     private void FixedUpdate()
@@ -193,33 +166,35 @@ public class TireSuspension : MonoBehaviour
             carRigidbody.AddForceAtPosition(steeringDir * 5f * desiredAccel, transform.position);
         }
 
-        if (rayCastHit && drivable)
+        if (GameTracker.Instance.GAMESTATE == GameTracker.GameStates.Playing)
         {
-            if (isAccel)
+            if (rayCastHit && drivable)
             {
-                Vector3 accelDir = transform.forward;
+                if (GameTracker.Instance.isAccel)
+                {
+                    Vector3 accelDir = transform.forward;
 
-                float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
+                    float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
 
-                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
+                    float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
 
+                    float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
 
-                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
+                    carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
+                }
 
-                carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
-            }
+                if (GameTracker.Instance.isDeccel)
+                {
+                    Vector3 accelDir = -transform.forward;
 
-            if (isDeccel)
-            {
-                Vector3 accelDir = -transform.forward;
+                    float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
 
-                float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
+                    float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
 
-                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
+                    float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * backwardSpeed;
 
-                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * backwardSpeed;
-
-                carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
+                    carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
+                }
             }
         }
     }

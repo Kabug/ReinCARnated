@@ -4,27 +4,84 @@ using UnityEngine;
 
 public class GameTracker : MonoBehaviour
 {
+    public static GameTracker Instance { get; private set; }
+    public enum GameStates
+    {
+        Menu,
+        Playing,
+        End
+    }
 
     public HealthBar healthBar;
     public float currentHealth;
     public float maxHealth = 100;
     public float dmgPerHit = 10;
+    public float healingPF = 0.25f;
+    public float damagePF = 0.125f;
 
     public GameObject popupUI;
     private bool isPopupActive = false;
+
+    private CustomInput input = null;
+    public bool isDrift;
+    public bool isTurnLeft;
+    public bool isTurnRight;
+    public bool isAccel;
+    public bool isDeccel;
+
+    public GameStates GAMESTATE = GameStates.Menu;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+        input = new CustomInput();
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
+        input.Enable();
         // healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
+        isDrift = input.Player.Drift.ReadValue<float>() > 0.1f;
+        isTurnLeft = input.Player.TurnLeft.ReadValue<float>() > 0.1f;
+        isTurnRight = input.Player.TurnRight.ReadValue<float>() > 0.1f;
+        isAccel = input.Player.Accelerate.ReadValue<float>() > 0.1f;
+        isDeccel = input.Player.Decelerate.ReadValue<float>() > 0.1f;
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetCurrentHealth(currentHealth);
+
+        if (currentHealth == 0)
+        {
+            GAMESTATE = GameStates.End;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (GAMESTATE == GameStates.Playing)
+        {
+            if ((isDrift && (isTurnLeft || isTurnRight) && (isAccel || isDeccel)))
+            {
+                currentHealth = Mathf.Min(maxHealth, currentHealth + healingPF);
+            }
+            else
+            {
+                currentHealth = Mathf.Max(0, currentHealth - damagePF);
+            }
+        }
     }
 
     void OnCollisionEnter(Collision col)
@@ -33,6 +90,7 @@ public class GameTracker : MonoBehaviour
         if (colTag == "endpoint")
         {
             Debug.Log("Endpoint reached");
+            GAMESTATE = GameStates.End;
             //Add game end UI stuff here
             /*if (!isPopupActive)
             {
@@ -47,5 +105,10 @@ public class GameTracker : MonoBehaviour
             currentHealth -= dmgPerHit;
             healthBar.SetCurrentHealth(currentHealth);
         }
+    }
+
+    public void setGamestate(GameStates gamestate)
+    {
+        GAMESTATE = gamestate;
     }
 }
