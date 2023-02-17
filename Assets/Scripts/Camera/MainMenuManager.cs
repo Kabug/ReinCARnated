@@ -26,16 +26,17 @@ public class MainMenuManager : MonoBehaviour
     private bool isExit;
     
     // other private vars
-    private bool isStarted = false;
+    public bool isStarted = false;
     private Vector3 startPosition;
     private Vector3 newPosition;
     private float startTime;
-   
 
+    public GameObject arrow;
     // Start is called before the first frame update
     void Start()
     {
         UICanvas.enabled = false;
+        arrow.SetActive(false);
         input = new CustomInput();
         input.Enable();
 
@@ -72,6 +73,8 @@ public class MainMenuManager : MonoBehaviour
 
         // Enable ui canvas
         UICanvas.enabled = true;
+
+        arrow.SetActive(true);
 
         // Switch Cameras
         MainMenuCamera.enabled = false;

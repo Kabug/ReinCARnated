@@ -12,9 +12,8 @@ public class Car : MonoBehaviour
 
     public Rigidbody rigidBody;
 
-    private float topSpeed = 27f;
+    private float topSpeed = 37f;
 
-    private float HP = 100;
     // Start is called before the first frame update
     void Start()
     {
