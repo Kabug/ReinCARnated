@@ -40995,6 +40995,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7768149863372055881, guid: 9a468418503787b469ce72ae834b73a8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9848078
+      objectReference: {fileID: 0}
+    - target: {fileID: 7768149863372055881, guid: 9a468418503787b469ce72ae834b73a8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.17364816
+      objectReference: {fileID: 0}
+    - target: {fileID: 7768149863372055881, guid: 9a468418503787b469ce72ae834b73a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7801565348687558868, guid: 9a468418503787b469ce72ae834b73a8, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -46323,6 +46335,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005288141}
   m_Mesh: {fileID: 4300000, guid: 2c933d115a7b6094cb2759df6a2eb6e9, type: 2}
+--- !u!1 &2019681655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7801565348687558870, guid: 9a468418503787b469ce72ae834b73a8, type: 3}
+  m_PrefabInstance: {fileID: 1774149337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2020705008
 GameObject:
   m_ObjectHideFlags: 0
@@ -48777,6 +48794,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 118769480, guid: b6eee71c02a739f469ba88306a55df75, type: 3}
+      propertyPath: arrow
+      value: 
+      objectReference: {fileID: 2019681655}
+    - target: {fileID: 118769480, guid: b6eee71c02a739f469ba88306a55df75, type: 3}
       propertyPath: UICanvas
       value: 
       objectReference: {fileID: 221354862}
@@ -48784,6 +48805,10 @@ PrefabInstance:
       propertyPath: CarCamera
       value: 
       objectReference: {fileID: 981262614}
+    - target: {fileID: 118769480, guid: b6eee71c02a739f469ba88306a55df75, type: 3}
+      propertyPath: playerController.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 118769480, guid: b6eee71c02a739f469ba88306a55df75, type: 3}
       propertyPath: playerController.Array.data[0]
       value: 
@@ -48798,6 +48823,10 @@ PrefabInstance:
       objectReference: {fileID: 4968439419337896939}
     - target: {fileID: 118769480, guid: b6eee71c02a739f469ba88306a55df75, type: 3}
       propertyPath: playerController.Array.data[3]
+      value: 
+      objectReference: {fileID: 4968439419141148161}
+    - target: {fileID: 118769480, guid: b6eee71c02a739f469ba88306a55df75, type: 3}
+      propertyPath: playerController.Array.data[4]
       value: 
       objectReference: {fileID: 4968439419141148161}
     - target: {fileID: 286822995845071882, guid: b6eee71c02a739f469ba88306a55df75, type: 3}
