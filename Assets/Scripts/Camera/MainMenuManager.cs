@@ -84,6 +84,7 @@ public class MainMenuManager : MonoBehaviour
         newPosition.Set(startPosition.x, startPosition.y + UIElementsTransitionHeight, startPosition.z);
 
         isStarted = true;
+        GameTracker.Instance.setGamestate(GameTracker.GameStates.Playing);
         startTime = Time.time;
     }
 }
