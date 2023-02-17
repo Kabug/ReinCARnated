@@ -16,6 +16,8 @@ public class GameTracker : MonoBehaviour
     public float currentHealth;
     public float maxHealth = 100;
     public float dmgPerHit = 10;
+    public float healingPF = 0.25f;
+    public float damagePF = 0.125f;
 
     public GameObject popupUI;
     private bool isPopupActive = false;
@@ -69,13 +71,16 @@ public class GameTracker : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if ((isDrift && (isTurnLeft || isTurnRight) && (isAccel || isDeccel)) && GAMESTATE == GameStates.Playing)
+        if (GAMESTATE == GameStates.Playing)
         {
-            currentHealth = Mathf.Min(maxHealth, currentHealth + 0.5f);
-        }
-        else
-        {
-            currentHealth = Mathf.Max(0, currentHealth - 0.125f);
+            if ((isDrift && (isTurnLeft || isTurnRight) && (isAccel || isDeccel)))
+            {
+                currentHealth = Mathf.Min(maxHealth, currentHealth + healingPF);
+            }
+            else
+            {
+                currentHealth = Mathf.Max(0, currentHealth - damagePF);
+            }
         }
     }
 

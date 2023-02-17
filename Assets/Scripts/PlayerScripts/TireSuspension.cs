@@ -63,13 +63,13 @@ public class TireSuspension : MonoBehaviour
                 if (GameTracker.Instance.isTurnLeft)
                 {
 
-                    transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
+                    transform.Rotate(-Vector3.up * 25 * Time.deltaTime);
 
                 }
 
                 if (GameTracker.Instance.isTurnRight)
                 {
-                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+                    transform.Rotate(Vector3.up * 25 * Time.deltaTime);
                 }
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime * 2.5f);
@@ -83,32 +83,6 @@ public class TireSuspension : MonoBehaviour
             {
                 gripFactor = Mathf.Lerp(defaultGrip, driftGrip, Time.deltaTime);
             }
-
-            if (trailRenderer)
-            {
-                if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10))
-                {
-                    trailRenderer.emitting = true;
-                }
-                else
-                {
-                    trailRenderer.emitting = false;
-                }
-            }
-            if (smokeParticles)
-            {
-                if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10) && 0.4f < Mathf.Clamp01(Mathf.Abs(Vector3.Dot(carTransform.forward, carRigidbody.velocity)) / topSpeed) && GameTracker.Instance.isDrift)
-                {
-                    var emission = smokeParticles.emission;
-                    emission.rateOverTime = 40;
-                }
-                else
-                {
-                    var emission = smokeParticles.emission;
-                    emission.rateOverTime = 0;
-                }
-            }
-
 
             if (drivable)
             {
@@ -133,6 +107,31 @@ public class TireSuspension : MonoBehaviour
                     backwardSpeed = Mathf.Lerp(backwardSpeedMaxPower, 0, backwardTotal);
                     backwardTotal = Time.deltaTime;
                 }
+            }
+        }
+
+        if (trailRenderer)
+        {
+            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10))
+            {
+                trailRenderer.emitting = true;
+            }
+            else
+            {
+                trailRenderer.emitting = false;
+            }
+        }
+        if (smokeParticles)
+        {
+            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10) && 0.4f < Mathf.Clamp01(Mathf.Abs(Vector3.Dot(carTransform.forward, carRigidbody.velocity)) / topSpeed) && GameTracker.Instance.isDrift)
+            {
+                var emission = smokeParticles.emission;
+                emission.rateOverTime = 40;
+            }
+            else
+            {
+                var emission = smokeParticles.emission;
+                emission.rateOverTime = 0;
             }
         }
 
