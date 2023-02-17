@@ -33,7 +33,6 @@ public class TireSuspension : MonoBehaviour
     private bool rayCastHit;
 
     public AnimationCurve powerCurve;
-    private CustomInput input = null;
 
     public TrailRenderer trailRenderer;
     public ParticleSystem smokeParticles;
@@ -52,21 +51,6 @@ public class TireSuspension : MonoBehaviour
             var emission = smokeParticles.emission;
             emission.rateOverTime = 0;
         } 
-    }
-
-    private void Awake()
-    {
-        input = new CustomInput();
-    }
-
-    public void enableControl()
-    {
-        input.Enable();
-    }
-
-    public void disableControl()
-    {
-        input.Disable();
     }
 
     // Update is called once per frame

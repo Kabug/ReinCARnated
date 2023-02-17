@@ -19,8 +19,6 @@ public class MainMenuManager : MonoBehaviour
 
     private CustomInput input = null;
 
-    public List<TireSuspension> playerController;
-
     // Control States
     private bool isEnter;
     private bool isExit;
@@ -39,11 +37,6 @@ public class MainMenuManager : MonoBehaviour
         arrow.SetActive(false);
         input = new CustomInput();
         input.Enable();
-
-        for(var i = 0; i < playerController.Count; i++)
-        {
-            playerController[i].disableControl();
-        }
     }
 
     // Update is called once per frame
@@ -64,12 +57,6 @@ public class MainMenuManager : MonoBehaviour
     private void StartGame() {
         input.Disable();
         print("Starting Game...");
-
-        // enable controls
-        for (var i = 0; i < playerController.Count; i++)
-        {
-            playerController[i].enableControl();
-        }
 
         // Enable ui canvas
         UICanvas.enabled = true;
