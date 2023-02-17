@@ -67,12 +67,12 @@ public class TireSuspension : MonoBehaviour
         input = new CustomInput();
     }
 
-    private void OnEnable()
+    public void enableControl()
     {
         input.Enable();
     }
 
-    private void OnDisable()
+    public void disableControl()
     {
         input.Disable();
     }

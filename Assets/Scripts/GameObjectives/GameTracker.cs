@@ -6,9 +6,9 @@ public class GameTracker : MonoBehaviour
 {
 
     public HealthBar healthBar;
-    public int currentHealth;
-    public int maxHealth = 100;
-    public int dmgPerHit = 10;
+    public float currentHealth;
+    public float maxHealth = 100;
+    public float dmgPerHit = 10;
 
     public GameObject popupUI;
     private bool isPopupActive = false;
@@ -17,13 +17,14 @@ public class GameTracker : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        // healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetCurrentHealth(currentHealth);
     }
 
     void OnCollisionEnter(Collision col)
