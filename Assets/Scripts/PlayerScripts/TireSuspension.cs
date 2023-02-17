@@ -84,32 +84,6 @@ public class TireSuspension : MonoBehaviour
                 gripFactor = Mathf.Lerp(defaultGrip, driftGrip, Time.deltaTime);
             }
 
-            if (trailRenderer)
-            {
-                if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10))
-                {
-                    trailRenderer.emitting = true;
-                }
-                else
-                {
-                    trailRenderer.emitting = false;
-                }
-            }
-            if (smokeParticles)
-            {
-                if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10) && 0.4f < Mathf.Clamp01(Mathf.Abs(Vector3.Dot(carTransform.forward, carRigidbody.velocity)) / topSpeed) && GameTracker.Instance.isDrift)
-                {
-                    var emission = smokeParticles.emission;
-                    emission.rateOverTime = 40;
-                }
-                else
-                {
-                    var emission = smokeParticles.emission;
-                    emission.rateOverTime = 0;
-                }
-            }
-
-
             if (drivable)
             {
                 if (GameTracker.Instance.isAccel)
@@ -133,6 +107,31 @@ public class TireSuspension : MonoBehaviour
                     backwardSpeed = Mathf.Lerp(backwardSpeedMaxPower, 0, backwardTotal);
                     backwardTotal = Time.deltaTime;
                 }
+            }
+        }
+
+        if (trailRenderer)
+        {
+            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10))
+            {
+                trailRenderer.emitting = true;
+            }
+            else
+            {
+                trailRenderer.emitting = false;
+            }
+        }
+        if (smokeParticles)
+        {
+            if (Mathf.Round(gripFactor * 10) < Mathf.Round(defaultGrip * 10) && 0.4f < Mathf.Clamp01(Mathf.Abs(Vector3.Dot(carTransform.forward, carRigidbody.velocity)) / topSpeed) && GameTracker.Instance.isDrift)
+            {
+                var emission = smokeParticles.emission;
+                emission.rateOverTime = 40;
+            }
+            else
+            {
+                var emission = smokeParticles.emission;
+                emission.rateOverTime = 0;
             }
         }
 

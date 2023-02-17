@@ -71,7 +71,7 @@ public class GameTracker : MonoBehaviour
     {
         if ((isDrift && (isTurnLeft || isTurnRight) && (isAccel || isDeccel)) && GAMESTATE == GameStates.Playing)
         {
-            currentHealth = Mathf.Min(maxHealth, currentHealth + 0.5f);
+            currentHealth = Mathf.Min(maxHealth, currentHealth + 0.25f);
         }
         else
         {
