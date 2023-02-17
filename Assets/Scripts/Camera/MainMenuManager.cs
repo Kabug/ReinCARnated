@@ -26,7 +26,7 @@ public class MainMenuManager : MonoBehaviour
     private bool isExit;
     
     // other private vars
-    private bool isStarted = false;
+    public bool isStarted = false;
     private Vector3 startPosition;
     private Vector3 newPosition;
     private float startTime;
