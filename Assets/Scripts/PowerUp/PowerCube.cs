@@ -5,23 +5,40 @@ using UnityEngine;
 public class PowerCube : MonoBehaviour
 {
     public GameObject pickupEffect;
+    public HealthBar healthBar;
+    public float multiplier = 1.4f;
+    public float duration = 4f;
 
-    void onCollisionEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         Debug.Log(other);
         if (other.CompareTag("Player"))
         {
-            Pickup();
+            StartCoroutine(Pickup(other));
         }
     }
 
-    void Pickup()
+    IEnumerator Pickup(Collider player)
     {
         Debug.Log("power up!");
 
-        Instantiate(pickupEffect, transform.position, transform.rotation);
+        GameObject clone = Instantiate(pickupEffect, transform.position, transform.rotation);
 
-        Destroy(gameObject);
+        player.transform.localScale *= multiplier;
+
+        GameTracker stats = player.GetComponent<GameTracker>();
+        stats.maxHealth *= multiplier;
+
+        GetComponent<Collider>().enabled =false;
+        GetComponent<MeshRenderer>().enabled =false;
+
+        Destroy(clone, 2f);
+
+        yield return new WaitForSeconds(duration);
+
+        player.transform.localScale /= multiplier;
+        stats.maxHealth /= multiplier;
+
 
     }
 }
