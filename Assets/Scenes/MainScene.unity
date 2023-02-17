@@ -48962,11 +48962,7 @@ PrefabInstance:
     - target: {fileID: 118769480, guid: b6eee71c02a739f469ba88306a55df75, type: 3}
       propertyPath: arrow
       value: 
-<<<<<<< HEAD
-      objectReference: {fileID: 2026014795}
-=======
       objectReference: {fileID: 2019681655}
->>>>>>> main
     - target: {fileID: 118769480, guid: b6eee71c02a739f469ba88306a55df75, type: 3}
       propertyPath: UICanvas
       value: 
