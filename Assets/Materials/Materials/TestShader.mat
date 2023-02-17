@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GlitterMat
-  m_Shader: {fileID: -6465566751694194690, guid: 976939ccd252db4489a86f6eda6d5a48, type: 3}
+  m_Name: TestShader
+  m_Shader: {fileID: -6465566751694194690, guid: 594cb6cdb8163074b8d9334b5a61a1e7, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -20,10 +20,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Albedo:
-        m_Texture: {fileID: 2800000, guid: 27b9ee5dc69091c43a684d8c70becd16, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -64,8 +60,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SparkleNoiseTex:
-        m_Texture: {fileID: 2800000, guid: 4de509e6d9d40ea4babe188033bfa496, type: 3}
+    - _SampleTexture2D_61b99eb1fdfa4f119410de9bee6e6a2c_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 27b9ee5dc69091c43a684d8c70becd16, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -106,10 +102,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
-    - _SparkleIntensity: 6.4
-    - _SparkleNoiseScale: 4.67
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
@@ -118,12 +112,10 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color_Tint: {r: 1, g: 1, b: 1, a: 10}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SparkleColor: {r: 0.31, g: 0.64, b: 1.03, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &603045568959102753
+--- !u!114 &6517781745501916120
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
