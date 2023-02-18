@@ -534,6 +534,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 0df6638869d196145b74840fac4b0354, type: 2}
   rigidBody: {fileID: 4890340788170587120}
+  targetScript: {fileID: 0}
+  startTargetScript: {fileID: 0}
 --- !u!114 &6834348282265436620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,7 +552,15 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 100
   dmgPerHit: 10
+  healingPF: 0.25
+  damagePF: 0.125
   popupUI: {fileID: 0}
+  isDrift: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isAccel: 0
+  isDeccel: 0
+  GAMESTATE: 0
 --- !u!1 &4890340788388346998
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,7 +933,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1092,7 +1102,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.00001
+      scalar: 0.000002
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2879,7 +2889,7 @@ ParticleSystem:
         m_RotationOrder: 4
     inWorldSpace: 0
   InheritVelocityModule:
-    enabled: 1
+    enabled: 0
     m_Mode: 1
     m_Curve:
       serializedVersion: 2
@@ -5568,7 +5578,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 668962fafd17a474e9c391c494033866, type: 2}
+  - {fileID: 2100000, guid: e3684c7d48e18bd4e84fe1f731a9969a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5866,7 +5876,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -6035,7 +6045,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.00001
+      scalar: 0.000002
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -7822,7 +7832,7 @@ ParticleSystem:
         m_RotationOrder: 4
     inWorldSpace: 0
   InheritVelocityModule:
-    enabled: 1
+    enabled: 0
     m_Mode: 1
     m_Curve:
       serializedVersion: 2
@@ -10511,7 +10521,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 668962fafd17a474e9c391c494033866, type: 2}
+  - {fileID: 2100000, guid: e3684c7d48e18bd4e84fe1f731a9969a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

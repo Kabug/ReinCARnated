@@ -36,6 +36,7 @@ public class TireSuspension : MonoBehaviour
 
     public TrailRenderer trailRenderer;
     public ParticleSystem smokeParticles;
+    public bool forceDrive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +57,12 @@ public class TireSuspension : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(forceDrive)
+        {
+            forwardSpeed = Mathf.Lerp(0, forwardSpeedMaxPower, forwardTotal);
+            forwardTotal += 0.5f * Time.deltaTime;
+        }
+
         if (GameTracker.Instance.GAMESTATE == GameTracker.GameStates.Playing)
         {
             if (turnable)
@@ -164,6 +171,19 @@ public class TireSuspension : MonoBehaviour
             float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
             carRigidbody.AddForceAtPosition(steeringDir * 5f * desiredAccel, transform.position);
+        }
+
+        if (forceDrive)
+        {
+            Vector3 accelDir = transform.forward;
+
+            float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
+
+            float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
+
+            float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
+
+            carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
         }
 
         if (GameTracker.Instance.GAMESTATE == GameTracker.GameStates.Playing)

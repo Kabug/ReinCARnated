@@ -15,6 +15,14 @@ public class Car : MonoBehaviour
     private float topSpeed = 37f;
 
     public Target targetScript;
+    public Target startTargetScript;
+
+    // main menu controls
+    private bool startSequenceOver = false;
+    public List<TireSuspension> tireScripts;
+    public  MainMenuManager mainMenuManager;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +36,12 @@ public class Car : MonoBehaviour
         float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
         abberation = Mathf.Clamp01(Mathf.Lerp(normalizedSpeed, 2, Time.deltaTime));
         chromaticAbberation.intensity.Override(abberation);
+
+        for (var i = 0; i < tireScripts.Count; i++)
+        {
+            tireScripts[i].forceDrive = !startSequenceOver;
+        }
+ 
     }
 
     void OnCollisionEnter(Collision collision)
@@ -39,6 +53,18 @@ public class Car : MonoBehaviour
             {
                 collision.rigidbody.AddForceAtPosition(new Vector3(-collision.relativeVelocity.x, collision.relativeVelocity.y, -collision.relativeVelocity.z) * 150 + Vector3.up * 45, contact.point);
             }
+        }
+
+        print(collision.gameObject.tag);
+        if (collision.gameObject.tag == "mainMenuTarget")
+        {
+            startTargetScript.enableRagdoll(true);
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                collision.rigidbody.AddForceAtPosition(new Vector3(-collision.relativeVelocity.x, collision.relativeVelocity.y, -collision.relativeVelocity.z) * 150 + Vector3.up * 45, contact.point);
+            }
+            startSequenceOver = true;
+            mainMenuManager.startTransition();
         }
 
         //foreach (ContactPoint contact in collision.contacts)

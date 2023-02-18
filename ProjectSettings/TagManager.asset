@@ -7,6 +7,7 @@ TagManager:
   - endPoint
   - enemy
   - test
+  - mainMenuTarget
   layers:
   - Default
   - TransparentFX
