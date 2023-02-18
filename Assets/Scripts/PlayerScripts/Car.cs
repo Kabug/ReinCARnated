@@ -37,7 +37,7 @@ public class Car : MonoBehaviour
             targetScript.enableRagdoll(true);
             foreach (ContactPoint contact in collision.contacts)
             {
-                collision.rigidbody.AddForceAtPosition(new Vector3(-collision.relativeVelocity.x, collision.relativeVelocity.y, -collision.relativeVelocity.z) * 100 + Vector3.up * 45, contact.point);
+                collision.rigidbody.AddForceAtPosition(new Vector3(-collision.relativeVelocity.x, collision.relativeVelocity.y, -collision.relativeVelocity.z) * 150 + Vector3.up * 45, contact.point);
             }
         }
 
