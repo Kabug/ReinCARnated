@@ -25,6 +25,7 @@ public class MainMenuManager : MonoBehaviour
     
     // other private vars
     public bool isStarted = false;
+    private bool menuControl = false;
     private Vector3 startPosition;
     private Vector3 newPosition;
     private float startTime;
@@ -45,13 +46,19 @@ public class MainMenuManager : MonoBehaviour
         isEnter = input.Menu.Confirm.ReadValue<float>() == 1;
         isExit = input.Menu.Exit.ReadValue<float>() == 1;
 
-        if (isExit) Application.Quit();
-        if (isEnter) StartGame();
+        if (isExit && menuControl) Application.Quit();
+        if (isEnter && menuControl) StartGame();
       
         if (isStarted)
         {
             UIElements.GetComponent<Transform>().localPosition = Vector3.Lerp(startPosition, newPosition, (Time.time - startTime) / UIElementsTransitionTime);
         }
+    }
+
+    public void startTransition()
+    {
+        menuControl = true;
+        UIElements.GetComponent<Rigidbody>().useGravity = true;
     }
 
     private void StartGame() {
