@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PenisifySphereShader
-  m_Shader: {fileID: -6465566751694194690, guid: 26f229f8a9a339e4f8894b09aa223a0a, type: 3}
+  m_Name: ScrollingGlitter
+  m_Shader: {fileID: -6465566751694194690, guid: b4d944e3f5c29d34eb69d25c75c0bae2, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -20,6 +20,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Albedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -44,10 +48,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Geometry:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -62,6 +62,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SparkleNoiseTex:
+        m_Texture: {fileID: 2800000, guid: 4de509e6d9d40ea4babe188033bfa496, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -83,7 +87,6 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _Amplitude: 0.11
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -93,37 +96,35 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EdgeBlend: 4.05
-    - _EffectRadius: 3.19
     - _EnvironmentReflections: 1
-    - _Frequency: 1.51
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientEdge: 1
-    - _Metallic: 0
+    - _Metallic: 0.43
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RippleDensity: 1.75
-    - _Smoothness: 0.5
+    - _Smoothness: 0.57
     - _SmoothnessTextureChannel: 0
+    - _SparkleIntensity: 2.8
+    - _SparkleNoiseScale: 0.48
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.14711641, g: 0.5471698, b: 0.16037787, a: 1}
-    - _Color: {r: 0.14711641, g: 0.5471698, b: 0.16037787, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color_Tint: {r: 5, g: 5, b: 5, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GradientColor: {r: 0, g: 0, b: 0, a: 0}
-    - _RippleOrigin: {r: 0, g: 0.41, b: 0, a: 0}
+    - _ScrollFactor: {r: 0.41, g: 0.34, b: 0, a: 0}
+    - _SparkleColor: {r: 0.31, g: 0.64, b: 1.03, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &4425309875664438315
+--- !u!114 &3987591971373170374
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
