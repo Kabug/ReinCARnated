@@ -11,6 +11,9 @@ public class MainMenuManager : MonoBehaviour
     public TMPro.TextMeshPro StartText;
     public TMPro.TextMeshPro EndText;
 
+    public Cinemachine.CinemachineVirtualCamera MainMenuCamera;
+    public Cinemachine.CinemachineVirtualCamera CarCamera;
+
     public float UIElementsTransitionTime;
     public float UIElementsTransitionHeight;
 
@@ -59,6 +62,9 @@ public class MainMenuManager : MonoBehaviour
         UICanvas.enabled = true;
 
         arrow.SetActive(true);
+
+        // Switch Cameras
+        MainMenuCamera.enabled = false;
 
         startPosition = UIElements.GetComponent<Transform>().localPosition;
         newPosition = new Vector3();

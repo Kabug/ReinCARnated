@@ -91,6 +91,7 @@ public class GameTracker : MonoBehaviour
         {
             Debug.Log("Endpoint reached");
             GAMESTATE = GameStates.End;
+            Physics.gravity = new Vector3(0, -4.20f, 0);
             //Add game end UI stuff here
             /*if (!isPopupActive)
             {
