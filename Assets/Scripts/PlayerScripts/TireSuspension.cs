@@ -63,13 +63,13 @@ public class TireSuspension : MonoBehaviour
                 if (GameTracker.Instance.isTurnLeft)
                 {
 
-                    transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
+                    transform.Rotate(-Vector3.up * 22.5f * Time.deltaTime);
 
                 }
 
                 if (GameTracker.Instance.isTurnRight)
                 {
-                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+                    transform.Rotate(Vector3.up * 22.5f * Time.deltaTime);
                 }
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime * 2.5f);
