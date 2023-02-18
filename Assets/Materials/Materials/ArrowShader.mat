@@ -104,8 +104,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _AwoogaFactor: 0.35
-    - _AwoogaOffset: 1.63
+    - _AwoogaFactor: 3
+    - _AwoogaOffset: 1
     - _AwoogaSpeed: 1
     - _Blend: 0
     - _BumpScale: 1
