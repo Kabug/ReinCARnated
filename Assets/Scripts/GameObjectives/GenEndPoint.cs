@@ -51,6 +51,12 @@ public class GenEndPoint : MonoBehaviour
         stickman.transform.position = stickManPosition;
         stickman.SetActive(true);
 
+        if (Physics.Raycast(stickman.transform.position, stickman.transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, Mathf.Infinity))
+        {
+            //Debug.DrawRay(stickman.transform.position, stickman.transform.TransformDirection(Vector3.down) * hitInfo.distance, Color.yellow);
+            stickman.transform.position = new Vector3(stickman.transform.position.x, stickman.transform.position.y - hitInfo.distance, stickman.transform.position.z);
+        }
+
         //Debug.Log(string.Format("Target is at: {0}", stickManPosition));
     }
 

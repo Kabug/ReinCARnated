@@ -14,6 +14,7 @@ public class Car : MonoBehaviour
 
     private float topSpeed = 37f;
 
+    public Target targetScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,9 +32,18 @@ public class Car : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        foreach (ContactPoint contact in collision.contacts)
+        if (collision.gameObject.tag == "endPoint")
         {
-            Debug.DrawRay(contact.point, contact.normal, Color.white);
+            targetScript.enableRagdoll(true);
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                collision.rigidbody.AddForceAtPosition(new Vector3(-collision.relativeVelocity.x, collision.relativeVelocity.y, -collision.relativeVelocity.z) * 100 + Vector3.up * 45, contact.point);
+            }
         }
+
+        //foreach (ContactPoint contact in collision.contacts)
+        //{
+        //    Debug.DrawRay(contact.point, contact.normal, Color.white);
+        //}
     }
 }
