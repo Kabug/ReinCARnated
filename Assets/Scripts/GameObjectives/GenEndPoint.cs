@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
+using UnityEngine;
+using UnityEngine.AI;
 
 public class GenEndPoint : MonoBehaviour
 {
@@ -16,6 +17,13 @@ public class GenEndPoint : MonoBehaviour
 
     private void Start()
     {
+        NavMeshTriangulation navMesh = NavMesh.CalculateTriangulation();
+        Vector3[] vertices = navMesh.vertices;
+        int randomVertex = Random.Range(0, vertices.Length);
+        Vector3 randomPoint = vertices[randomVertex];
+        NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas);
+        Vector3 randomPosition = hit.position;
+
         //GameObject[] openAreaObjects = GameObject.FindObjectsOfType<GameObject>().Where(obj => obj.name.ToLower().Contains("01green") || obj.name.ToLower().Contains("01line") || obj.name.ToLower().Contains("01street")).ToArray();
         //int randomInt = Random.Range(0, openAreaObjects.Length);
         //GameObject randomSpawnArea = openAreaObjects[randomInt];
@@ -23,7 +31,7 @@ public class GenEndPoint : MonoBehaviour
         //Bounds randomSpawnAreaBounds = randomSpawnArea.bounds;
         //Vector3 spawnPosition = randomSpawnArea.transform.position;
 
-        Dictionary<int, List<int>> staticXPaths = new Dictionary<int, List<int>>();
+        /*Dictionary<int, List<int>> staticXPaths = new Dictionary<int, List<int>>();
         staticXPaths.Add(450, new List<int> {-1250, 1500});
         staticXPaths.Add(-330, new List<int> {-1350, 1350});
 
@@ -46,9 +54,10 @@ public class GenEndPoint : MonoBehaviour
             xPos = Random.Range(randomPair.Value.ElementAt(0), randomPair.Value.ElementAt(1));
             zPos = randomPair.Key;
         }
-
         stickManPosition = new Vector3(xPos, 10, zPos);
-        stickman.transform.position = stickManPosition;
+        stickman.transform.position = stickManPosition;*/
+
+        stickman.transform.position = randomPosition;
         stickman.SetActive(true);
 
         if (Physics.Raycast(stickman.transform.position, stickman.transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, Mathf.Infinity))
