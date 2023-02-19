@@ -34,3 +34,5 @@ A - Drift
 
 Spoiler for theme:
 Each time the game is won, the next time the game is booted up the target is the driver looking to find a new target and so the end of the game is just the beginning!
+
+Submission for Brackeys 2023 GameJam!
