@@ -30,6 +30,8 @@ public class GameTracker : MonoBehaviour
     public bool isDeccel;
 
     public GameStates GAMESTATE = GameStates.Menu;
+
+    public Vector3 targetPoint;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -89,9 +91,12 @@ public class GameTracker : MonoBehaviour
         string colTag = col.gameObject.tag.ToLower();
         if (colTag == "endpoint")
         {
-            Debug.Log("Endpoint reached");
+            Debug.Log("Endpoint reached and won");
             GAMESTATE = GameStates.End;
             Physics.gravity = new Vector3(0, -4.20f, 0);
+            PlayerPrefs.SetFloat("TargetX", col.transform.position.x);
+            PlayerPrefs.SetFloat("TargetY", col.transform.position.y);
+            PlayerPrefs.SetFloat("TargetZ", col.transform.position.z);
             //Add game end UI stuff here
             /*if (!isPopupActive)
             {
@@ -111,5 +116,10 @@ public class GameTracker : MonoBehaviour
     public void setGamestate(GameStates gamestate)
     {
         GAMESTATE = gamestate;
+    }
+
+    public void setStartPoint(Vector3 point)
+    {
+        targetPoint = point;
     }
 }

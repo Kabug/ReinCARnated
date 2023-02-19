@@ -56,7 +56,7 @@ public class GenEndPoint : MonoBehaviour
             //Debug.DrawRay(stickman.transform.position, stickman.transform.TransformDirection(Vector3.down) * hitInfo.distance, Color.yellow);
             stickman.transform.position = new Vector3(stickman.transform.position.x, stickman.transform.position.y - hitInfo.distance, stickman.transform.position.z);
         }
-
+        GameTracker.Instance.setStartPoint(stickman.transform.localPosition);
         //Debug.Log(string.Format("Target is at: {0}", stickManPosition));
     }
 
