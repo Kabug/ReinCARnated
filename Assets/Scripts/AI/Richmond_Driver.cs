@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AI : MonoBehaviour
+public class Richmond_Driver : MonoBehaviour
 {
     [SerializeField] private Transform movePositionTransform;
     private NavMeshAgent navMeshAgent;
