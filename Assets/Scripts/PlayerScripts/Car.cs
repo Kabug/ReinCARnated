@@ -12,7 +12,7 @@ public class Car : MonoBehaviour
 
     public Rigidbody rigidBody;
 
-    private float topSpeed = 37f;
+    public float topSpeed = 38f;
 
     public Target targetScript;
     public Target startTargetScript;
@@ -27,18 +27,19 @@ public class Car : MonoBehaviour
     void Start()
     {
         profile.TryGet(out chromaticAbberation);
-        Vector3 startPosition = new Vector3(PlayerPrefs.GetFloat("TargetX"), PlayerPrefs.GetFloat("TargetY"), PlayerPrefs.GetFloat("TargetZ"));
-        if (startPosition != new Vector3(0, 0, 0))
-        {
-            Debug.Log(startPosition);
-            transform.position = startPosition;
-        }
+        //Vector3 startPosition = new Vector3(PlayerPrefs.GetFloat("TargetX"), PlayerPrefs.GetFloat("TargetY"), PlayerPrefs.GetFloat("TargetZ"));
+        //if (startPosition != new Vector3(0, 0, 0))
+        //{
+        //    Debug.Log(startPosition);
+        //    transform.position = startPosition;
+        //}
     }
 
     // Update is called once per frame
     void Update()
     {
         float carSpeed = Vector3.Dot(transform.forward, rigidBody.velocity);
+        GameTracker.Instance.setCarSpeed(carSpeed);
         float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
         abberation = Mathf.Clamp01(Mathf.Lerp(normalizedSpeed, 2, Time.deltaTime));
         chromaticAbberation.intensity.Override(abberation);
