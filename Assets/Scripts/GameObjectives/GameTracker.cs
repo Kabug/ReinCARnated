@@ -32,7 +32,7 @@ public class GameTracker : MonoBehaviour
     public bool isFlip;
 
     public float carSpeed;
-    public float topSpeed = 38f;
+    public float topSpeed = 37f;
 
     public GameStates GAMESTATE = GameStates.Menu;
     private void Awake()

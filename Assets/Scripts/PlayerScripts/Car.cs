@@ -12,7 +12,7 @@ public class Car : MonoBehaviour
 
     public Rigidbody rigidBody;
 
-    public float topSpeed = 38f;
+    public float topSpeed = 37f;
 
     public Target targetScript;
     public Target startTargetScript;
