@@ -539,7 +539,11 @@ MonoBehaviour:
   rigidBody: {fileID: 4890340788170587120}
   targetScript: {fileID: 0}
   startTargetScript: {fileID: 0}
-  tireScripts: []
+  tireScripts:
+  - {fileID: 4890340786530542968}
+  - {fileID: 4890340786997811346}
+  - {fileID: 4890340788388346992}
+  - {fileID: 4890340787964161532}
   mainMenuManager: {fileID: 0}
 --- !u!114 &6834348282265436620
 MonoBehaviour:
@@ -555,7 +559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
   currentHealth: 0
-  maxHealth: 100
+  maxHealth: 100000
   dmgPerHit: 10
   healingPF: 0.25
   damagePF: 0.125

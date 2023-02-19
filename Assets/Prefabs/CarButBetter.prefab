@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4935401169308411772}
   - component: {fileID: 2768672318607731630}
   - component: {fileID: 6729319952043984868}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: wheel_backRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4149290312263049084}
   - component: {fileID: 220134556974290158}
   - component: {fileID: 8223357659395327900}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: wheel_frontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 4968439417409172512}
   - component: {fileID: 6125969079942666365}
   - component: {fileID: 6482634621052882460}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: CarButBetter
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -251,6 +251,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 0df6638869d196145b74840fac4b0354, type: 2}
   rigidBody: {fileID: 4968439417409172512}
+  targetScript: {fileID: 0}
+  startTargetScript: {fileID: 0}
+  tireScripts: []
+  mainMenuManager: {fileID: 0}
 --- !u!114 &6482634621052882460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +271,15 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 100
   dmgPerHit: 10
+  healingPF: 0.25
+  damagePF: 0.125
   popupUI: {fileID: 0}
+  isDrift: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isAccel: 0
+  isDeccel: 0
+  GAMESTATE: 0
 --- !u!1 &4968439417720517542
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4968439417720517543}
   - component: {fileID: 4968439417720517536}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wheel - FL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,6 +373,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   trailRenderer: {fileID: 0}
   smokeParticles: {fileID: 0}
+  forceDrive: 0
 --- !u!1 &4968439418404676114
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4968439418404676115}
   - component: {fileID: 4968439418404676140}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wheel - FR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,6 +467,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   trailRenderer: {fileID: 0}
   smokeParticles: {fileID: 0}
+  forceDrive: 0
 --- !u!1 &4968439419057728174
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4968439419057728175}
   - component: {fileID: 4968439419057728168}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wheel - BL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,6 +563,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   trailRenderer: {fileID: 6125969079819964204}
   smokeParticles: {fileID: 6125969078640475914}
+  forceDrive: 0
 --- !u!1 &4968439419387369280
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4968439419387369281}
   - component: {fileID: 4968439419387369282}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wheel - BR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -644,6 +659,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   trailRenderer: {fileID: 6125969079324466507}
   smokeParticles: {fileID: 6125969078678729187}
+  forceDrive: 0
 --- !u!1 &5828789759882732814
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,7 +671,7 @@ GameObject:
   - component: {fileID: 6432600981439486530}
   - component: {fileID: 6170480022941599751}
   - component: {fileID: 5645137229560166512}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: wheel_frontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10623,7 +10639,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6808396631822882409}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: taxi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10657,7 +10673,7 @@ GameObject:
   - component: {fileID: 8601566047610803389}
   - component: {fileID: 7076435314190486628}
   - component: {fileID: 3220807538011163454}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10747,7 +10763,7 @@ GameObject:
   - component: {fileID: 274409788706337946}
   - component: {fileID: 5946773020834143201}
   - component: {fileID: 915094238220227886}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: wheel_backLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}

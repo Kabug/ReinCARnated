@@ -27,6 +27,12 @@ public class Car : MonoBehaviour
     void Start()
     {
         profile.TryGet(out chromaticAbberation);
+        Vector3 startPosition = new Vector3(PlayerPrefs.GetFloat("TargetX"), PlayerPrefs.GetFloat("TargetY"), PlayerPrefs.GetFloat("TargetZ"));
+        if (startPosition != new Vector3(0, 0, 0))
+        {
+            Debug.Log(startPosition);
+            transform.position = startPosition;
+        }
     }
 
     // Update is called once per frame
@@ -55,7 +61,7 @@ public class Car : MonoBehaviour
             }
         }
 
-        print(collision.gameObject.tag);
+
         if (collision.gameObject.tag == "mainMenuTarget")
         {
             startTargetScript.enableRagdoll(true);

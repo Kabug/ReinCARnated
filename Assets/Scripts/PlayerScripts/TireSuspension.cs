@@ -146,6 +146,18 @@ public class TireSuspension : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (forceDrive)
+        {
+            Vector3 accelDir = transform.forward;
+
+            float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
+
+            float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
+
+            float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
+
+            carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
+        }
         rayCastHit = false;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, suspensionLength))
         {
@@ -156,6 +168,11 @@ public class TireSuspension : MonoBehaviour
             carRigidbody.AddForceAtPosition(transform.up * compressionRatio, transform.position);
 
             rayCastHit = true;
+        }
+
+        if (GameTracker.Instance.GAMESTATE != GameTracker.GameStates.Playing)
+        {
+            return;
         }
 
         if (rayCastHit)
@@ -173,48 +190,32 @@ public class TireSuspension : MonoBehaviour
             carRigidbody.AddForceAtPosition(steeringDir * 5f * desiredAccel, transform.position);
         }
 
-        if (forceDrive)
+        if (rayCastHit && drivable)
         {
-            Vector3 accelDir = transform.forward;
-
-            float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
-
-            float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
-
-            float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
-
-            carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
-        }
-
-        if (GameTracker.Instance.GAMESTATE == GameTracker.GameStates.Playing)
-        {
-            if (rayCastHit && drivable)
+            if (GameTracker.Instance.isAccel)
             {
-                if (GameTracker.Instance.isAccel)
-                {
-                    Vector3 accelDir = transform.forward;
+                Vector3 accelDir = transform.forward;
 
-                    float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
+                float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
 
-                    float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
+                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
 
-                    float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
+                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * forwardSpeed;
 
-                    carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
-                }
+                carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
+            }
 
-                if (GameTracker.Instance.isDeccel)
-                {
-                    Vector3 accelDir = -transform.forward;
+            if (GameTracker.Instance.isDeccel)
+            {
+                Vector3 accelDir = -transform.forward;
 
-                    float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
+                float carSpeed = Vector3.Dot(carTransform.forward, carRigidbody.velocity);
 
-                    float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
+                float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
 
-                    float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * backwardSpeed;
+                float availableToruqe = powerCurve.Evaluate(normalizedSpeed) * backwardSpeed;
 
-                    carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
-                }
+                carRigidbody.AddForceAtPosition(accelDir * availableToruqe, transform.position);
             }
         }
     }
