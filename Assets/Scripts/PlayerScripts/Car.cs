@@ -32,7 +32,7 @@ public class Car : MonoBehaviour
         if (!(PlayerPrefs.GetFloat("StartX") == 0 && PlayerPrefs.GetFloat("StartY") == 0 && PlayerPrefs.GetFloat("StartZ") == 0))
         {
             playerStartPosition = new Vector3(PlayerPrefs.GetFloat("StartX"), PlayerPrefs.GetFloat("StartY"), PlayerPrefs.GetFloat("StartZ"));
-            transform.position = playerStartPosition;
+            transform.position = playerStartPosition + Vector3.up;
             bananaStart.SetActive(false);
             mainMenuManager.startTransition();
         }
