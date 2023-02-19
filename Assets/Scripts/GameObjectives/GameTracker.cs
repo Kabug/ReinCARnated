@@ -29,6 +29,9 @@ public class GameTracker : MonoBehaviour
     public bool isAccel;
     public bool isDeccel;
 
+    public float carSpeed;
+    public float topSpeed = 38f;
+
     public GameStates GAMESTATE = GameStates.Menu;
     private void Awake()
     {
@@ -73,7 +76,8 @@ public class GameTracker : MonoBehaviour
     {
         if (GAMESTATE == GameStates.Playing)
         {
-            if ((isDrift && (isTurnLeft || isTurnRight) && (isAccel || isDeccel)))
+            float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / topSpeed);
+            if ((isDrift && normalizedSpeed > 0.6f && (isTurnLeft || isTurnRight) && (isAccel || isDeccel)))
             {
                 currentHealth = Mathf.Min(maxHealth, currentHealth + healingPF);
             }
@@ -111,5 +115,10 @@ public class GameTracker : MonoBehaviour
     public void setGamestate(GameStates gamestate)
     {
         GAMESTATE = gamestate;
+    }
+
+    public void setCarSpeed(float speed)
+    {
+        carSpeed = speed;
     }
 }
