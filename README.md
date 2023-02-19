@@ -1,17 +1,36 @@
-![PENIS SERIOUS](./pictures/PENIS%20SERIOUS.webp)
+Story:
+Oh no! It seems you've died an unfortunate death after getting run over by a car 😢But, luckily for you, you're reincarnated as a car 😀!  Get your revenge by running over the next fool you see 😈
 
-![PENIS DELIRIOUS](./pictures/PENIS%20DELIRIOUS.webp)
+Objective:
+The objective of the game is to run over your target. The arrow above your car will point you in the direction of the target Run over the target and you win! (it's just that ez) There's a drift meter in the top right of the screen which slowly decreases over time. The drift meter also decreases when you collide with another car You can keep your drift meter filled by drifting at top speeds (it won't fill if you drive too slow) If the drift meter reaches 0 you lose
 
-![going to the woods](./pictures/going%20to%20the%20woods.webp)
+Theme:
+Play the game after winning again to find the theme. If you do not care about being spoiled scroll to the very bottom.
 
-![call that](./pictures/call%20that.webp)
+Controls:
+Keyboard Controls: 
+W - Forward 
 
-![PENIS MYSTERIOUS](./pictures/PENIS%20MYSTERIOUS.webp)
+S - Backward 
 
-![PENIS VARIOUS](./pictures/PENIS%20VARIOUS.webp)
+A - Turn Left 
 
-![PENIS HILARIOUS](./pictures/PENIS%20HILARIOUS.webp)
+D - Turn Right 
 
-![dawn of the age of the](./pictures/dawn%20of%20the%20age%20of%20the.webp)
+Space - Drift 
 
-![PENIS AQUARIUS](./pictures/PENIS%20AQUARIUS.webp)
+F - Unstuck your car
+
+Controller Controls: 
+Right Trigger - Forward 
+
+Left Trigger - Backward 
+
+Left Joystick - Turn 
+
+A - Drift
+
+ X - Unstuck your car
+
+Spoiler for theme:
+Each time the game is won, the next time the game is booted up the target is the driver looking to find a new target and so the end of the game is just the beginning!
