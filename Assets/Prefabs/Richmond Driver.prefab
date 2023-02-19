@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4520408776373866668}
   - component: {fileID: 297406266421517118}
   - component: {fileID: 8444731309158631500}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: wheel_frontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4850547687232563372}
   - component: {fileID: 2396696294516597886}
   - component: {fileID: 6507088540436645940}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: wheel_backRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4890340786530542975}
   - component: {fileID: 4890340786530542968}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wheel - BL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4890340786997811345}
   - component: {fileID: 4890340786997811346}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wheel - BR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4890340787964161475}
   - component: {fileID: 4890340787964161532}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wheel - FR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 5958719707156135036}
   - component: {fileID: -3478288158716778584}
   - component: {fileID: 1505961564824687528}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Richmond Driver
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -572,7 +572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4890340788388346999}
   - component: {fileID: 4890340788388346992}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wheel - FL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,7 +647,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6436421157523478969}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: taxi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -818,7 +818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5921488253480759512
 Transform:
   m_ObjectHideFlags: 0
@@ -5761,7 +5761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5983291312533083965
 Transform:
   m_ObjectHideFlags: 0
@@ -10567,7 +10567,7 @@ GameObject:
   - component: {fileID: 6803737099078833554}
   - component: {fileID: 5949106370928052183}
   - component: {fileID: 5294267493961840544}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: wheel_frontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10651,7 +10651,7 @@ GameObject:
   - component: {fileID: 8102095463343004525}
   - component: {fileID: 7285142176716063668}
   - component: {fileID: 3142405601442940142}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10741,7 +10741,7 @@ GameObject:
   - component: {fileID: 351399953551145802}
   - component: {fileID: 6172645998981551153}
   - component: {fileID: 836995558419045118}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: wheel_backLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
