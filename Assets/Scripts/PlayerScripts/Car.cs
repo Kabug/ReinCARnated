@@ -22,17 +22,20 @@ public class Car : MonoBehaviour
     public List<TireSuspension> tireScripts;
     public  MainMenuManager mainMenuManager;
 
+    public Vector3 playerStartPosition = new Vector3(0, 0, 0);
 
+    public GameObject bananaStart;
     // Start is called before the first frame update
     void Start()
     {
         profile.TryGet(out chromaticAbberation);
-        //Vector3 startPosition = new Vector3(PlayerPrefs.GetFloat("TargetX"), PlayerPrefs.GetFloat("TargetY"), PlayerPrefs.GetFloat("TargetZ"));
-        //if (startPosition != new Vector3(0, 0, 0))
-        //{
-        //    Debug.Log(startPosition);
-        //    transform.position = startPosition;
-        //}
+        if (!(PlayerPrefs.GetFloat("StartX") == 0 && PlayerPrefs.GetFloat("StartY") == 0 && PlayerPrefs.GetFloat("StartZ") == 0))
+        {
+            playerStartPosition = new Vector3(PlayerPrefs.GetFloat("StartX"), PlayerPrefs.GetFloat("StartY"), PlayerPrefs.GetFloat("StartZ"));
+            transform.position = playerStartPosition;
+            bananaStart.SetActive(false);
+            mainMenuManager.startTransition();
+        }
     }
 
     // Update is called once per frame
@@ -44,23 +47,24 @@ public class Car : MonoBehaviour
         abberation = Mathf.Clamp01(Mathf.Lerp(normalizedSpeed, 2, Time.deltaTime));
         chromaticAbberation.intensity.Override(abberation);
 
-        for (var i = 0; i < tireScripts.Count; i++)
+        if (PlayerPrefs.GetFloat("StartX") == 0 && PlayerPrefs.GetFloat("StartY") == 0 && PlayerPrefs.GetFloat("StartZ") == 0)
         {
-            tireScripts[i].forceDrive = !startSequenceOver;
+            for (var i = 0; i < tireScripts.Count; i++)
+            {
+                tireScripts[i].forceDrive = !startSequenceOver;
+            }
         }
 
         RaycastHit hitInfo;
         if (Physics.Raycast(transform.position,new Vector3(0, -1, 0), out hitInfo, Mathf.Infinity))
         {
         }
-        Debug.Log(hitInfo.distance);
         if (GameTracker.Instance.isFlip && GameTracker.Instance.GAMESTATE == GameTracker.GameStates.Playing && (hitInfo.distance == 0 || hitInfo.distance < 2))
         {
             rigidBody.isKinematic = true;
             transform.position = transform.position + new Vector3(0, 1, 0);
             transform.rotation = Quaternion.identity;
             rigidBody.isKinematic = false;
-
         }
 
     }

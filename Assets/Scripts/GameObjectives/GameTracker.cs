@@ -35,6 +35,8 @@ public class GameTracker : MonoBehaviour
     public float topSpeed = 37f;
 
     public GameStates GAMESTATE = GameStates.Menu;
+
+    public Vector3 possibleSpawnSpot;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -52,6 +54,7 @@ public class GameTracker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         currentHealth = maxHealth;
         input.Enable();
         // healthBar.SetMaxHealth(maxHealth);
@@ -97,6 +100,9 @@ public class GameTracker : MonoBehaviour
         string colTag = col.gameObject.tag.ToLower();
         if (colTag == "endpoint")
         {
+            PlayerPrefs.SetFloat("StartX", possibleSpawnSpot.x);
+            PlayerPrefs.SetFloat("StartY", possibleSpawnSpot.y);
+            PlayerPrefs.SetFloat("StartZ", possibleSpawnSpot.z);
             Debug.Log("Endpoint reached");
             GAMESTATE = GameStates.End;
             Physics.gravity = new Vector3(0, -4.20f, 0);

@@ -57,6 +57,8 @@ public class GenEndPoint : MonoBehaviour
             stickman.transform.position = new Vector3(stickman.transform.position.x, stickman.transform.position.y - hitInfo.distance, stickman.transform.position.z);
         }
 
+        GameTracker.Instance.possibleSpawnSpot = stickman.transform.position;
+
         //Debug.Log(string.Format("Target is at: {0}", stickManPosition));
     }
 
