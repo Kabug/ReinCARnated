@@ -19,7 +19,8 @@ public class GameTracker : MonoBehaviour
     public float healingPF = 0.25f;
     public float damagePF = 0.125f;
 
-    public GameObject popupUI;
+    public GameObject youWin;
+    public GameObject gameOver;
     private bool isPopupActive = false;
 
     private CustomInput input = null;
@@ -71,6 +72,7 @@ public class GameTracker : MonoBehaviour
         if (currentHealth == 0)
         {
             GAMESTATE = GameStates.End;
+            gameOver.SetActive(true);
         }
     }
 
@@ -98,12 +100,9 @@ public class GameTracker : MonoBehaviour
             Debug.Log("Endpoint reached");
             GAMESTATE = GameStates.End;
             Physics.gravity = new Vector3(0, -4.20f, 0);
+            youWin.SetActive(true);
             //Add game end UI stuff here
-            /*if (!isPopupActive)
-            {
-                //popupUI.SetActive(true);
-                isPopupActive = true;
-            }*/
+            
         }
         else if (colTag == "enemy")
         {
