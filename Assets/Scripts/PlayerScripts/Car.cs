@@ -55,8 +55,11 @@ public class Car : MonoBehaviour
         }
         if (GameTracker.Instance.isFlip && GameTracker.Instance.GAMESTATE == GameTracker.GameStates.Playing && (hitInfo.distance == 0 || hitInfo.distance < 2))
         {
+            rigidBody.isKinematic = true;
             transform.position = transform.position + new Vector3(0, 1, 0);
             transform.rotation = Quaternion.identity;
+            rigidBody.isKinematic = false;
+
         }
 
     }
