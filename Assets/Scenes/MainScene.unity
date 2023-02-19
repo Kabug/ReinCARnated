@@ -8344,6 +8344,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449282890}
   m_Mesh: {fileID: 4300000, guid: d21978b02dc0ced4caddcab3cf03e44c, type: 2}
+--- !u!1 &451591751 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6469688861345256742, guid: e3731235b94a42c49820d1b4fd471500, type: 3}
+  m_PrefabInstance: {fileID: 191517092}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &459769071
 GameObject:
   m_ObjectHideFlags: 0
@@ -9622,7 +9627,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3926428192243055086, guid: e3731235b94a42c49820d1b4fd471500, type: 3}
   m_PrefabInstance: {fileID: 191517092}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 451591751}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ab51ef49f19fd44c98303e46662f105, type: 3}
@@ -39168,6 +39173,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5921488251632768941, guid: 296194972a5cecb449f672a9947abda5, type: 3}
+      propertyPath: bananaStart
+      value: 
+      objectReference: {fileID: 451591751}
     - target: {fileID: 5921488251632768941, guid: 296194972a5cecb449f672a9947abda5, type: 3}
       propertyPath: targetScript
       value: 
