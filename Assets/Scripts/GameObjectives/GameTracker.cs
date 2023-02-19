@@ -28,6 +28,7 @@ public class GameTracker : MonoBehaviour
     public bool isTurnRight;
     public bool isAccel;
     public bool isDeccel;
+    public bool isFlip;
 
     public float carSpeed;
     public float topSpeed = 38f;
@@ -63,6 +64,7 @@ public class GameTracker : MonoBehaviour
         isTurnRight = input.Player.TurnRight.ReadValue<float>() > 0.1f;
         isAccel = input.Player.Accelerate.ReadValue<float>() > 0.1f;
         isDeccel = input.Player.Decelerate.ReadValue<float>() > 0.1f;
+        isFlip = input.Player.Flip.ReadValue<float>() > 0.1f;
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetCurrentHealth(currentHealth);
 

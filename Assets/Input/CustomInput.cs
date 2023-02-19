@@ -71,6 +71,15 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Flip"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b22ad0d-bf78-4468-adee-5c80a933b178"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -183,6 +192,28 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""action"": ""Drift"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc0bf9c7-dee8-479f-9e76-71f286d9bafe"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Flip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f2bf350-9153-4b41-a26f-3b93ddd517ab"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Flip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -277,6 +308,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         m_Player_TurnLeft = m_Player.FindAction("TurnLeft", throwIfNotFound: true);
         m_Player_TurnRight = m_Player.FindAction("TurnRight", throwIfNotFound: true);
         m_Player_Drift = m_Player.FindAction("Drift", throwIfNotFound: true);
+        m_Player_Flip = m_Player.FindAction("Flip", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Confirm = m_Menu.FindAction("Confirm", throwIfNotFound: true);
@@ -345,6 +377,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_TurnLeft;
     private readonly InputAction m_Player_TurnRight;
     private readonly InputAction m_Player_Drift;
+    private readonly InputAction m_Player_Flip;
     public struct PlayerActions
     {
         private @CustomInput m_Wrapper;
@@ -354,6 +387,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         public InputAction @TurnLeft => m_Wrapper.m_Player_TurnLeft;
         public InputAction @TurnRight => m_Wrapper.m_Player_TurnRight;
         public InputAction @Drift => m_Wrapper.m_Player_Drift;
+        public InputAction @Flip => m_Wrapper.m_Player_Flip;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -378,6 +412,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @Drift.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrift;
                 @Drift.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrift;
                 @Drift.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrift;
+                @Flip.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFlip;
+                @Flip.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFlip;
+                @Flip.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFlip;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -397,6 +434,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @Drift.started += instance.OnDrift;
                 @Drift.performed += instance.OnDrift;
                 @Drift.canceled += instance.OnDrift;
+                @Flip.started += instance.OnFlip;
+                @Flip.performed += instance.OnFlip;
+                @Flip.canceled += instance.OnFlip;
             }
         }
     }
@@ -449,6 +489,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         void OnTurnLeft(InputAction.CallbackContext context);
         void OnTurnRight(InputAction.CallbackContext context);
         void OnDrift(InputAction.CallbackContext context);
+        void OnFlip(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

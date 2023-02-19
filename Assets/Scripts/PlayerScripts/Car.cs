@@ -48,7 +48,17 @@ public class Car : MonoBehaviour
         {
             tireScripts[i].forceDrive = !startSequenceOver;
         }
- 
+
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hitInfo, Mathf.Infinity))
+        {
+        }
+        if (GameTracker.Instance.isFlip && GameTracker.Instance.GAMESTATE == GameTracker.GameStates.Playing && (hitInfo.distance == 0 || hitInfo.distance < 2))
+        {
+            transform.position = transform.position + new Vector3(0, 1, 0);
+            transform.rotation = Quaternion.identity;
+        }
+
     }
 
     void OnCollisionEnter(Collision collision)
