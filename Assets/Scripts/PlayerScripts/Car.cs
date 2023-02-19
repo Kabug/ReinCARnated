@@ -50,9 +50,10 @@ public class Car : MonoBehaviour
         }
 
         RaycastHit hitInfo;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hitInfo, Mathf.Infinity))
+        if (Physics.Raycast(transform.position,new Vector3(0, -1, 0), out hitInfo, Mathf.Infinity))
         {
         }
+        Debug.Log(hitInfo.distance);
         if (GameTracker.Instance.isFlip && GameTracker.Instance.GAMESTATE == GameTracker.GameStates.Playing && (hitInfo.distance == 0 || hitInfo.distance < 2))
         {
             rigidBody.isKinematic = true;
