@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SpawnDrivers : MonoBehaviour
 {
     public List<GameObject> objectsToSpawn;
-    //Vector3 myVector;
+
     // Start is called before the first frame update
     void Start()
     {
+        NavMeshTriangulation navMesh = UnityEngine.AI.NavMesh.CalculateTriangulation();
+        Vector3[] vertices = navMesh.vertices;
         spawnRoadOne();
         spawnRoadTwo();
+        spawnRoadThree(vertices);
     }
 
     // Update is called once per frame
@@ -43,6 +47,20 @@ public class SpawnDrivers : MonoBehaviour
             GameObject vehicle = objectsToSpawn[Random.Range(0, objectsToSpawn.Count)];
             Instantiate(vehicle, new Vector3(x, 3, -5), transform.rotation);
             Instantiate(vehicle, new Vector3(x, 3, 8), transform.rotation);
+        }
+    }
+
+    void spawnRoadThree(Vector3[] vertices)
+    {
+        for (int i = 0; i < 200; i++)
+        {
+            int randomVertex = Random.Range(0, vertices.Length);
+            Vector3 randomPoint = vertices[randomVertex];
+            UnityEngine.AI.NavMesh.SamplePosition(randomPoint, out UnityEngine.AI.NavMeshHit hit, 1.0f, UnityEngine.AI.NavMesh.AllAreas);
+            Vector3 randomPosition = hit.position;
+
+            GameObject vehicle = objectsToSpawn[Random.Range(0, objectsToSpawn.Count)];
+            Instantiate(vehicle, randomPosition, transform.rotation);
         }
     }
 }
