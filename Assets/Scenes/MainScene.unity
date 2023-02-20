@@ -39113,6 +39113,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 4890340787964161532, guid: 296194972a5cecb449f672a9947abda5, type: 3}
+      propertyPath: drivable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4890340788170587116, guid: 296194972a5cecb449f672a9947abda5, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -39169,6 +39173,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weird Kab
       objectReference: {fileID: 0}
+    - target: {fileID: 4890340788388346992, guid: 296194972a5cecb449f672a9947abda5, type: 3}
+      propertyPath: drivable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5915779773825450755, guid: 296194972a5cecb449f672a9947abda5, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -39203,7 +39211,7 @@ PrefabInstance:
       objectReference: {fileID: 605738299}
     - target: {fileID: 6834348282265436620, guid: 296194972a5cecb449f672a9947abda5, type: 3}
       propertyPath: dmgPerHit
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6834348282265436620, guid: 296194972a5cecb449f672a9947abda5, type: 3}
       propertyPath: healthBar
@@ -39211,7 +39219,7 @@ PrefabInstance:
       objectReference: {fileID: 905305962}
     - target: {fileID: 6834348282265436620, guid: 296194972a5cecb449f672a9947abda5, type: 3}
       propertyPath: maxHealth
-      value: 100
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 296194972a5cecb449f672a9947abda5, type: 3}

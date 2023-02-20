@@ -14,9 +14,9 @@ public class TireSuspension : MonoBehaviour
     public bool turnable;
     public bool drivable;
 
-    private float forwardSpeedMaxPower = 3000f;
+    private float forwardSpeedMaxPower = 6000f;
     private float forwardSpeed = 0f;
-    private float backwardSpeedMaxPower = 2000f;
+    private float backwardSpeedMaxPower = 3000f;
     private float backwardSpeed = 0f;
     private float forwardTotal = 0;
     private float backwardTotal = 0;
@@ -70,13 +70,13 @@ public class TireSuspension : MonoBehaviour
                 if (GameTracker.Instance.isTurnLeft)
                 {
 
-                    transform.Rotate(-Vector3.up * 20 * Time.deltaTime);
+                    transform.Rotate(-Vector3.up * 45 * Time.deltaTime);
 
                 }
 
                 if (GameTracker.Instance.isTurnRight)
                 {
-                    transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+                    transform.Rotate(Vector3.up * 45 * Time.deltaTime);
                 }
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, carTransform.rotation, Time.deltaTime * 2.5f);
